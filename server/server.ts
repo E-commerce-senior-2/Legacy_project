@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 
 import userRoute from "./routes/user_route";
+import creatorRoute from "./routes/creator_route";
 import itemsRoute from "./routes/item_route"
 import postRoute from "./routes/post_route"
 import brandRoute from './routes/brand_route';
@@ -36,6 +37,11 @@ app.use("/Items" , itemsRoute )
 
 //Posts route //
 app.use("/Posts" ,postRoute )
+
+// creator Route:
+app.use("/creators", creatorRoute)
+
+
 
 app.listen(3000, () => {
   console.log("listening on http://localhost:3000");
