@@ -13,3 +13,9 @@ app.use("/api/user", userRoute);
 app.listen(3000, () => {
   console.log("listening on http://localhost:3000");
 });
+
+
+
+//authentication route
+// const authRoute = require("./route/auth_route.js")
+// app.use("/auth", authRoute);
