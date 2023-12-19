@@ -107,7 +107,6 @@ export const addCollection = async (req: Request, res: Response): Promise<void> 
             },
           },
         });
-    
         res.status(200).send('Collection Added');
       } catch (err) {
         console.error(err);
