@@ -3,12 +3,15 @@ import cors from "cors";
 
 import userRoute from "./routes/user_route";
 import creatorRoute from "./routes/creator_route";
+import followingCreator from "./routes/followingCreator_route";
+import basket from "./routes/basket_route";
 import itemsRoute from "./routes/item_route"
 import postRoute from "./routes/post_route"
 import brandRoute from './routes/brand_route';
 import favoriteRoute from './routes/favorite_route';
 import followingBrandRoute from './routes/followingBrand_route'
 import collectionRoute from "./routes/collection_route"
+
 
 
 
@@ -41,7 +44,11 @@ app.use("/Posts" ,postRoute )
 // creator Route:
 app.use("/creators", creatorRoute)
 
+// following Creator:
+app.use("/followingCreator", followingCreator)
 
+// basket :
+app.use("/baskets", basket)
 
 app.listen(3000, () => {
   console.log("listening on http://localhost:3000");
