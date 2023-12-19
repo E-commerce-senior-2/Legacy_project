@@ -3,3 +3,7 @@ node_modules
 .env
 package-lock.json
 migrations
+# Keep environment variables out of version contr
+.env 
+package-lock.json
+

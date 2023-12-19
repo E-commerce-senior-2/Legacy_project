@@ -62,6 +62,9 @@ model Post {
   status    String
   image     String
   like      String
+
+  like      Int
+
   creator   Creator   @relation(fields: [creatorId], references: [id])
   creatorId Int
   comment   Comment[]
