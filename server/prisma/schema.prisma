@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int                @id @default(autoincrement())
+  fullName        String
+  userName        String
+  email           String?
+  password        String
+  dateBirth       String
+  comment         Comment[]
+  basket          Basket[]
+  followedCreator FollowingCreator[]
+  followedBrands  FollowingBrand[]
+  favorite        Favorite[]
+}
+
+model Item {
+  id           Int        @id @default(autoincrement())
+  name         String
+  status       String
+  gender       String
+  image        String[]   @db.Text
+  price        Float
+  category     String
+  description  String     @db.Text
+  stock        Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
+  basket       Basket[]
+  favorite     Favorite[]
+}
+
+model Creator {
+  id         Int                @id @default(autoincrement())
+  fullName   String
+  userName   String
+  bgImage    String             @db.Text
+  pfImage    String             @db.Text
+  status     Boolean
+  bio        String
+  dateBirth  String
+  email      String
+  password   String
+  address    String
+  post       Post[]
+  collection Collection[]
+  followers  FollowingCreator[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  status    String
+  image     String
+  creator   Creator   @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  comment   Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  comment String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  Int
+  post    Post   @relation(fields: [postId], references: [id])
+  postId  Int
+}
+
+model Collection {
+  id        Int     @id @default(autoincrement())
+  name      String
+  creator   Creator @relation(fields: [creatorId], references: [id])
+  creatorId Int
+  brand     Brand   @relation(fields: [brandId], references: [id])
+  brandId   Int
+  item      Item[]
+}
+
+model Brand {
+  id         Int              @id @default(autoincrement())
+  brandName  String
+  brandImage String           @db.Text
+  bgImage    String           @db.Text
+  status     Boolean
+  collection Collection[]
+  followers  FollowingBrand[]
+}
+
+model Basket {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  item   Item @relation(fields: [itemId], references: [id])
+  itemId Int
+}
+
+model FollowingCreator {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  creator   Creator @relation(fields: [creatorId], references: [id])
+  creatorId Int
+}
+
+model FollowingBrand {
+  id      Int   @id @default(autoincrement())
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  brand   Brand @relation(fields: [brandId], references: [id])
+  brandId Int
+}
+
+model Favorite {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  item   Item @relation(fields: [itemId], references: [id])
+  itemId Int
+}
