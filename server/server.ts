@@ -1,14 +1,17 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import userRoute from "./routes/user_route";
+import collectionRoute from "./routes/collection_route"
+
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
 
+/* Collection Route */
+app.use('/collections', collectionRoute);
+/* Collection Route*/
 
-app.use("/api/user", userRoute);
 
 app.listen(3000, () => {
   console.log("listening on http://localhost:3000");
