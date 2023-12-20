@@ -93,6 +93,7 @@ export const getOneBrandsCollection = async (req: Request, res: Response): Promi
         const result = await prisma.collection.findMany({
           where: {
             brandId: parseInt(brand),
+
           },
           include: {
             item: true,

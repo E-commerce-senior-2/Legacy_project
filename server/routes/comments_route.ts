@@ -3,10 +3,10 @@ import {getAllComments , createComment , updateComment , deleteComment} from "..
 
 const route = Router()
 
-route.get("/Post" , getAllComments)
+route.get("/Post/:postId" , getAllComments)
 route.post("/Post/:userId/:postId" , createComment )
-route.put("/Post/:userId/:postId" , updateComment)
-route.delete("/Post/:userId/:postId" , deleteComment)
+route.put("/Post/:userId/:commentId" , updateComment)
+route.delete("/Post/:userId/:commentId" , deleteComment)
 
 
 export default route

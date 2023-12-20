@@ -7,13 +7,17 @@ const prisma = new PrismaClient()
     const getAllItems = async (req : Request , res : Response) => {
         try {
             const items = await prisma.item.findMany()
+            console.log(items);
+            
             res.status(200).json(items)
         }catch (err) {
             res.status(400).json({error : err})
         }
     }
    const CreateItem = async (req : Request , res : Response) => {
-        let {name , status , gender , image , price , category , description , stock , collectiondId} = req.body
+        let {name , status , gender , image , price , category , description , stock , collectionId} = req.body
+        console.log(req.body.collectionId);
+        
         try {
            const item = await prisma.item.create({
             data :{
@@ -25,11 +29,13 @@ const prisma = new PrismaClient()
                 category,
                 description,
                 stock,
-                collectionId : collectiondId
+                collectionId : collectionId,
             }
             })
             res.status(201).json(item)
         }catch (err) {
+            console.log(err);
+            
             res.status(401).json({error : err})
         }
     };
