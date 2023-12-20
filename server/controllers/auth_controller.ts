@@ -4,14 +4,18 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 
+
 export const signup = async (req: Request, res: Response): Promise<void> => {
+
   const { fullName, userName, email, password, dateBirth } = req.body;
+  let table;
   try {
     if (req.params.role === "creator") {
       const existingUserCount = await prisma.creator.count({
         where: { email },
       });
       if (existingUserCount > 0) {
+        console.log(existingUserCount)
         res.status(409).send("userAlreadyexist");
       }
     } else if (req.params.role === "user") {
@@ -19,21 +23,42 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         where: { email },
       });
       if (existingUserCount > 0) {
+        console.log(existingUserCount)
         res.status(409).send("userAlreadyexist");
       }
     }
 
     const salt = bcryptjs.genSaltSync(5);
     const hach = bcryptjs.hashSync(password, salt);
-    const user = await prisma.user.create({
-      data: {
-        fullName,
-        userName,
-        email,
-        password: hach,
-        dateBirth,
-      },
-    });
+    let user
+    if (req.body.role === 'user') {
+      user = await prisma.user.create({
+        data: {
+          fullName,
+          userName,
+          email,
+          password: hach,
+          dateBirth,
+        },
+      }); 
+      console.log(user)
+    } else {
+      user = await prisma.creator.create({
+        data: {
+          fullName,
+          userName,
+          email,
+          password: hach,
+          dateBirth,
+          bgImage: '',
+          pfImage: '',
+          status: false,
+          bio: '',
+          address: ''
+        },
+      });
+      console.log(user)
+    }
 
     res.status(200).json("done");
   } catch (err) {
@@ -142,7 +167,7 @@ export const signing = async (req: Request, res: Response) => {
   }
 };
 
-const logout = async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   res
     .clearCookie("access_token", {
       sameSite: "none",

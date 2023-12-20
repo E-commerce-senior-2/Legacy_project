@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 export const getAllCreators = async (req: Request, res: Response): Promise<void> => {
     try {
         const creators = await prisma.creator.findMany({})
-        res.status(200).send(creators)
+        res.status(200).send([creators])
     } catch (err) {
         res.status(400).json(err)
     }
@@ -45,5 +45,26 @@ export const updateCreator = async (req: Request, res: Response): Promise<void> 
     }
 }
 
-
+export const addCreator = async (req: Request, res: Response): Promise<void> => {
+    const { fullName, userName, bgImage, pfImage, status, bio, dateBirth, email, password, address } = req.body
+    try {
+        let newCreator = await prisma.creator.create({
+            data: {
+                fullName: fullName,
+                userName: userName,
+                bgImage: bgImage,
+                pfImage: pfImage,
+                status: status,
+                bio: bio,
+                dateBirth: dateBirth,
+                email: email,
+                password: password,
+                address: address
+            }
+        })
+        res.status(200).send(newCreator)
+    } catch (err) {
+        res.status(400).send({ error: err })
+    }
+}
 
