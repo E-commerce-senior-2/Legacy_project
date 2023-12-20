@@ -8,7 +8,7 @@ const getAllPosts = async (req : Request , res:Response) => {
     let {creatorId} = req.params
     let id : number = +creatorId
     try {
-        const posts = await prisma.post.findMany({
+        const posts  = await prisma.post.findMany({
             where : {creatorId : id}
         })
         if(!!posts.length) {
@@ -35,7 +35,8 @@ const addPost = async (req : Request , res:Response) => {
             data : {
                 creatorId : id,
                 status : status,
-                image : image
+                image : image,
+                like : 0
             }
         })
         res.status(201).json(post)
