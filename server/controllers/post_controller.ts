@@ -27,7 +27,7 @@ const addPost = async (req : Request , res:Response) => {
     let{status , image} = req.body
     try {
         if(!(status && image)) {
-          return  res.status(401).send("All inputs are required")
+    return  res.status(401).send("All inputs are required")
         }
 
 
@@ -37,8 +37,8 @@ const addPost = async (req : Request , res:Response) => {
                 status : status,
                 image : image,
                 like : 0
-            }
-        })
+            
+        }})
         res.status(201).json(post)
     }catch (err) {
         res.status(401).send(err)
