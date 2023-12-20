@@ -11,6 +11,7 @@ import brandRoute from './routes/brand_route';
 import favoriteRoute from './routes/favorite_route';
 import followingBrandRoute from './routes/followingBrand_route'
 import collectionRoute from "./routes/collection_route"
+import authRoute from "./routes/auth_route"
 
 
 
@@ -23,7 +24,10 @@ app.use(cors());
 /* Collection Route */
 app.use('/collections', collectionRoute);
 /* Collection Route*/
+//  authentification route 
 
+
+app.use("/auth", authRoute);
 
 app.use("/api/user", userRoute);
 // brand route:
