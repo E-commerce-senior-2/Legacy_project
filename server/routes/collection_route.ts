@@ -10,6 +10,10 @@ route.get(
     "/item/:brand",
     collectionController.getOneBrandsCollection
   );
+  route.get(
+    "/:brand/:creator/:collection_id",
+    collectionController.getOneBrandsWithCreaterCollection
+  );
   route.post("/:brand/:creator", collectionController.addCollection);
 
 export default route
