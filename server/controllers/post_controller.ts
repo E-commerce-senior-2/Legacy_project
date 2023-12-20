@@ -35,7 +35,8 @@ const addPost = async (req : Request , res:Response) => {
             data : {
                 creatorId : id,
                 status : status,
-                image : image
+                image : image,
+                like:0
             }
         })
         res.status(201).json(post)
