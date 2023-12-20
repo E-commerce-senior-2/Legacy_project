@@ -6,4 +6,8 @@ migrations
 # Keep environment variables out of version contr
 .env 
 package-lock.json
+<<<<<<< HEAD
+migrationsgit
+=======
 
+>>>>>>> 4322baf01131b2d82b94e1203cb51dd640288ec5

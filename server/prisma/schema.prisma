@@ -61,7 +61,6 @@ model Post {
   id        Int       @id @default(autoincrement())
   status    String
   image     String
-  like      String
 
   like      Int
 
