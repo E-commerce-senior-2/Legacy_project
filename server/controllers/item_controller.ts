@@ -15,9 +15,6 @@ const prisma = new PrismaClient()
    const CreateItem = async (req : Request , res : Response) => {
         let {name , status , gender , image , price , category , description , stock , collectiondId} = req.body
         try {
-            // if(!(name && status && gender && image && price && category && description && stock && collectiondId)){
-            //    return  res.status(401).send("All inputs are required!")
-            // } 
            const item = await prisma.item.create({
             data :{
                 name,
