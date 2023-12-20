@@ -23,12 +23,11 @@ const Signin: React.FC = () => {
 
   const submit = async () => {
     try {
-      if (password.current && emails.current) {
-        await login(
-          { password: password.current.value, email: emails.current.value },
-          role
-        );
-      }
+      await login(
+        { password: password.current?.value, email: emails.current?.value },
+        role
+      );
+
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -97,7 +96,7 @@ const Signin: React.FC = () => {
           <span
             className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709]"
             onClick={() => {
-              router.push("/signup");
+              router.push("/signUp");
             }}
           >
             Create Account

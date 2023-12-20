@@ -13,11 +13,14 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
       const existingUserCount = await prisma.user.count({
         where: { email },
       });
+
       if (existingUserCount !== 0) {
-        res.status(409).send("userAlreadyexist");
+         res.status(409).send("userAlreadyexist");
       }
+
       const salt = bcryptjs.genSaltSync(5);
       const hach = bcryptjs.hashSync(password, salt);
+
       let user = await prisma.user.create({
         data: {
           fullName,
@@ -27,17 +30,20 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
           dateBirth,
         },
       });
-      res.status(200).json("done");
+
+       res.status(200).json("done");
     } else if (req.params.role === "creator") {
       const existingUserCount = await prisma.creator.count({
         where: { email },
       });
-      console.log("ddddddd", existingUserCount);
+
       if (existingUserCount !== 0) {
-        res.status(409).send("userAlreadyexist");
+         res.status(409).send("userAlreadyexist");
       }
+
       const salt = bcryptjs.genSaltSync(5);
       const hach = bcryptjs.hashSync(password, salt);
+
       let user = await prisma.creator.create({
         data: {
           fullName,
@@ -52,12 +58,14 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
           address: "",
         },
       });
-      res.status(200).json("done");
+
+       res.status(200).json("done");
     }
   } catch (err) {
-    res.status(500).json({ error: err });
+     res.status(500).json({ error: err });
   }
 };
+
 
 export const signin = async (req: Request, res: Response): Promise<void> => {
   const { fullName, userName, email, dateBirth, id } = req.body;
