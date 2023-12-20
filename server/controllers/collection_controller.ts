@@ -67,6 +67,25 @@ export const getAllBrandsCollections = async (req: Request, res: Response): Prom
     
 }
 
+export const getOneBrandsWithCreaterCollection = async (req: Request, res: Response):Promise <void> => {
+    const { creator, collection_id, brand } = req.params;
+    try {
+        const result = await prisma.collection.findFirst({
+            where:{id: +collection_id},
+            include:{
+                brand:true,
+                creator:true
+            }
+        })
+        if (result){
+            res.status(200).send(result)
+        }else{
+            res.status(230).send([])
+        }
+    } catch (error) {
+        res.status(400).send(error)
+    }
+}
 
 export const getOneBrandsCollection = async (req: Request, res: Response): Promise<void> => {
     const {brand} = req.params
@@ -107,7 +126,6 @@ export const addCollection = async (req: Request, res: Response): Promise<void> 
             },
           },
         });
-    
         res.status(200).send('Collection Added');
       } catch (err) {
         console.error(err);
