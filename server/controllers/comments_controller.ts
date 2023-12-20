@@ -33,7 +33,7 @@ const createComment = async (req: Request , res : Response) => {
         })
         res.status(201).json(result)
     }catch (err) {
-        res.status(201).send(err)
+        res.status(401).send(err)
     }
 }
 

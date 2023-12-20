@@ -21,12 +21,10 @@ const CreateItem = async (req: Request, res: Response) => {
     category,
     description,
     stock,
-    collectiondId,
+    collectionId,
   } = req.body;
   try {
-    // if(!(name && status && gender && image && price && category && description && stock && collectiondId)){
-    //    return  res.status(401).send("All inputs are required!")
-    // }
+ 
     const item = await prisma.item.create({
       data: {
         name,
@@ -37,7 +35,7 @@ const CreateItem = async (req: Request, res: Response) => {
         category,
         description,
         stock,
-        collectionId: collectiondId,
+        collectionId: collectionId,
       },
     });
     res.status(201).json(item);
