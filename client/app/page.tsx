@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@material-tailwind/react";
 import React, { useContext, useEffect, useState } from "react";
 // import Valentino from "../../assets/Brands/Valentino.png";
@@ -766,7 +766,6 @@ const buttons = () => {
 //     )
 //   );
 // };
-
 
 const Quetions = () => {
   const allLabels = [
