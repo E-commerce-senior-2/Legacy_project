@@ -1,33 +1,31 @@
-"use client";
-
+'use client'
 import axios from "axios";
-import { useQuery, useQueryClient } from "react-query";
-import { useMutation } from "@tanstack/react-query";
+
+import { useMutation ,useQueryClient,useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
-import { useContext } from "react"; // Update import
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
 import { UserContext } from "../../context";
-import { fetchData  } from "../utils/userQueries/user";
-import {deleteItem } from "../utils/userQueries/user";
+import { fetchData,deleteItem } from "../utils/userQueries/user";
+
+
 const MyFavorite = () => {
   const { currentUser } = useContext(UserContext);
   const id = currentUser.id;
-  const { data, isLoading, isError, error } = useQuery(
-    ["favoriteItems", id],
-    () => fetchData(id)
-  )
- 
 
-  const deleteItem: Function = async (iditem: string, id: string) => {
-    await axios.delete(`http://localhost:3001/favoriteItem/${iditem}/${id}`);
-  };
+  const { data , isLoading, isError, error } = useQuery({
+    queryKey: ["favoriteItems", id],
+    queryFn: () => fetchData(id).then(res => res.data),
+  });
+  
 
   const queryClient = useQueryClient();
+  console.log(queryClient);
+  
 
   const deleteItemMutation = useMutation({
-    mutationFn: deleteItem(),
+    mutationFn: (itemId: string) => deleteItem(itemId, id),
     onSuccess: () => {
-      queryClient.invalidateQueries(["favoriteItems", id]);
+      queryClient.invalidateQueries({queryKey : ["favoriteItems"]});
     },
   });
 
@@ -35,18 +33,18 @@ const MyFavorite = () => {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return <div>Error: </div>;
-  }
+  // if (isError) {
+  //   return <div>Error: </div>;
+  // }
 
   return (
-    <div className="mb-6  flex justify-center items-center flex-col  ">
-      <h1 className="flex justify-center font-bold text-Liver text-3xl mb-2 ">
+    <div className="mb-6 flex justify-center items-center flex-col">
+      <h1 className="flex justify-center font-bold text-Liver text-3xl mb-2">
         Your favorite items
       </h1>
-      <div className="grid min-h-screen w-full p-10   justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center bg-PaleDogwood leading-3 md:grid-cols-2">
+      <div className="grid min-h-screen w-full p-10 justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center bg-PaleDogwood leading-3 md:grid-cols-2">
         {data &&
-          data.map((item: any) => (
+          data.map((item:any) => (
             <div
               key={item.id}
               className="max-w-xs cursor-pointer rounded-lg bg-Liver p-4 shadow duration-150 hover:scale-105 hover:shadow-md"
@@ -71,7 +69,7 @@ const MyFavorite = () => {
                   <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
                     <MdDelete
                       className="text-xl w-8"
-                      onClick={() => deleteItemMutation.mutate(item.id)}
+                      // onClick={() => deleteItemMutation.mutate(item.id)}
                     />
                   </p>
                 </div>
