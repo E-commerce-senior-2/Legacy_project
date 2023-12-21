@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "@material-tailwind/react";
+// import { Button } from "@material-tailwind/react";
 import React, { useContext, useEffect, useState } from "react";
 // import Valentino from "../../assets/Brands/Valentino.png";
 // import Dior from "../../assets/Brands/Dior-Logo.png";
@@ -14,7 +14,7 @@ import { PiDressDuotone } from "react-icons/pi";
 import axios from "axios";
 // import { useSpring, animated, config } from "react-spring";
 import Link from "next/link";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 // import { userContext } from "../../Usercontext.jsx";
 import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
