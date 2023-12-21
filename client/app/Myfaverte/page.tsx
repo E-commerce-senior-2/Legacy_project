@@ -7,18 +7,16 @@ import { MdDelete } from "react-icons/md";
 import { useContext } from "react"; // Update import
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../context";
-
+import { fetchData  } from "../utils/userQueries/user";
+import {deleteItem } from "../utils/userQueries/user";
 const MyFavorite = () => {
   const { currentUser } = useContext(UserContext);
   const id = currentUser.id;
   const { data, isLoading, isError, error } = useQuery(
     ["favoriteItems", id],
     () => fetchData(id)
-  );
-  const fetchData = async (id: string) => {
-    const response = await axios.get(`http://localhost:3001/favoriteItem/2`);
-    return response.data;
-  };
+  )
+ 
 
   const deleteItem: Function = async (iditem: string, id: string) => {
     await axios.delete(`http://localhost:3001/favoriteItem/${iditem}/${id}`);
@@ -27,7 +25,7 @@ const MyFavorite = () => {
   const queryClient = useQueryClient();
 
   const deleteItemMutation = useMutation({
-    mutationFn: deleteItem("1", "1"),
+    mutationFn: deleteItem(),
     onSuccess: () => {
       queryClient.invalidateQueries(["favoriteItems", id]);
     },
