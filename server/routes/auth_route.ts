@@ -6,4 +6,4 @@ route.post("/signin/:role", UserController.signin);
 route.post("/logout", UserController.logout);
 route.post("/signupgoogle/:role", UserController.signing);
 
-module.exports = route;
+export default route;

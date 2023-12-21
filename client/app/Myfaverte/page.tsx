@@ -9,12 +9,12 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../context";
 
 const fetchData = async (id: string) => {
-  const response = await axios.get(`http://localhost:8080/favoriteItem/${id}`);
-  return response.data;
+  const response = await axios.get(`http://localhost:3001/favoriteItem/${id}`);
+  return response.data
 };
 
-const deleteItem = async (iditem: number, id: number) => {
-  await axios.delete(`http://localhost:8080/favoriteItem/${iditem}/${id}`);
+const deleteItem: Function = async (iditem: string, id: string) => {
+  await axios.delete(`http://localhost:3001/favoriteItem/${iditem}/${id}`);
 };
 
 const MyFavorite = () => {
@@ -27,7 +27,8 @@ const MyFavorite = () => {
 
   const queryClient = useQueryClient();
 
-  const deleteItemMutation = useMutation(deleteItem, {
+  const deleteItemMutation = useMutation({
+    mutationFn: deleteItem("1", "1"),
     onSuccess: () => {
       queryClient.invalidateQueries(["favoriteItems", id]);
     },
