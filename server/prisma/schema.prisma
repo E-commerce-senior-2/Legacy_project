@@ -59,13 +59,13 @@ model Creator {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  status    String
-  image     String
+  status    String 
+  image     String 
 
-  like      Int
+  like      Int 
 
-  creator   Creator   @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creator   Creator   @relation(fields: [creatorId], references: [id]) 
+  creatorId Int   
   comment   Comment[]
 }
 
