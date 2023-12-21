@@ -8,7 +8,7 @@ const getAllPosts = async (req : Request , res:Response) => {
     let {creatorId} = req.params
     let id : number = +creatorId
     try {
-        const posts = await prisma.post.findMany({
+        const posts  = await prisma.post.findMany({
             where : {creatorId : id}
         })
         if(!!posts.length) {
@@ -27,7 +27,7 @@ const addPost = async (req : Request , res:Response) => {
     let{status , image} = req.body
     try {
         if(!(status && image)) {
-          return  res.status(401).send("All inputs are required")
+    return  res.status(401).send("All inputs are required")
         }
 
 
@@ -36,9 +36,9 @@ const addPost = async (req : Request , res:Response) => {
                 creatorId : id,
                 status : status,
                 image : image,
-                like :0,
-            }
-        })
+                like : 0
+            
+        }})
         res.status(201).json(post)
     }catch (err) {
         res.status(401).send(err)

@@ -12,6 +12,7 @@ import favoriteRoute from './routes/favorite_route';
 import followingBrandRoute from './routes/followingBrand_route'
 import collectionRoute from "./routes/collection_route"
 import authRoute from "./routes/auth_route"
+import commentRoute from "./routes/comments_route"
 
 
 
@@ -39,8 +40,8 @@ app.use("/followingBrand", followingBrandRoute)
 
 //Items route//
 app.use("/Items" , itemsRoute )
-
-
+//Comment Route//
+app.use("/Comment", commentRoute)
 //Posts route //
 app.use("/Posts" ,postRoute )
 
@@ -53,8 +54,8 @@ app.use("/followingCreator", followingCreator)
 // basket :
 app.use("/baskets", basket)
 
-app.listen(3000, () => {
-  console.log("listening on http://localhost:3000");
+app.listen(3001, () => {
+  console.log("listening on http://localhost:3001");
 });
 
 

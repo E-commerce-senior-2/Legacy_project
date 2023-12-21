@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import bcrypt from 'bcryptjs';
-
 import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 
@@ -87,6 +86,7 @@ else {
       req.body.password,
       user[0].password
     );
+    const { fullName, userName, email, dateBirth,id } = user[0];
 
     if (!isPasswordCorrect) {
        res.status(409).send("password incorrect");
@@ -108,7 +108,10 @@ else {
 
 export const signing = async (req: Request, res: Response) => {
   const fullName: string = req.body.fullName;
+  console.log(fullName);
   const email: string = req.body.email;
+  console.log(email);
+  
   let User;
 
   try {
@@ -157,6 +160,8 @@ export const signing = async (req: Request, res: Response) => {
     } else {
       User = await prisma.user.findMany({ where: { email: req.body.email } });
     }
+    console.log(User);
+    
 
     const token = jwt.sign({ id: User[0].id }, "jwtkey");
     const { password, ...other } = User[0];
