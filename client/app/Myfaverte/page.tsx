@@ -1,30 +1,30 @@
+"use client";
+
 import axios from "axios";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react"; // Update import
 import { useParams } from "react-router-dom";
-// import { userContext } fom "../../Usercontext";
-
-
-
+import { UserContext } from "../../context";
 
 const fetchData = async (id: string) => {
   const response = await axios.get(`http://localhost:8080/favoriteItem/${id}`);
   return response.data;
 };
 
-const deleteItem = async (iditem: string, id: string) => {
+const deleteItem = async (iditem: number, id: number) => {
   await axios.delete(`http://localhost:8080/favoriteItem/${iditem}/${id}`);
 };
 
 const MyFavorite = () => {
-  const { currentUser } = useContext(userContext);
+  const { currentUser } = useContext(UserContext);
   const id = currentUser.id;
   const { data, isLoading, isError, error } = useQuery(
     ["favoriteItems", id],
     () => fetchData(id)
   );
- 
+
   const queryClient = useQueryClient();
 
   const deleteItemMutation = useMutation(deleteItem, {
@@ -38,7 +38,7 @@ const MyFavorite = () => {
   }
 
   if (isError) {
-    return <div>Error: {error?.message}</div>; 
+    return <div>Error: </div>;
   }
 
   return (
