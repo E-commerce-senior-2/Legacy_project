@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from 'react'
 import { BsBag } from 'react-icons/bs'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import Zoom from 'react-zoom-image-hover/dist/esm/components/Zoom'
+import Lightbox from 'react-18-image-lightbox'
+import 'react-18-image-lightbox/style.css'
 // import 'react-toastify/dist/ReactToastify.css'
 import { UserContext } from '@/context'
 import Link from 'next/link'
@@ -14,6 +16,8 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
     // const { collectionId, name } = useParams()
     // const [data, setData] = useState([])
     const { currentUser } = useContext(UserContext)
+    const [isOpen , setIsOpen] = useState(false)
+    const [photoIndex , setPhotoIndex] = useState(0)
     console.log(+params.collectionId , params.name.replaceAll("-" , " "))
     
         const {data , isLoading , error} = useQuery({
@@ -29,7 +33,7 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
         <div className="py-10">
             <div className="constainer   flex  h-full flex-col items-center gap-5 rounded-lg bg-white   p-10 lg:grid  lg:grid-flow-col">
                 <div className="desc flex flex-col gap-8">
-                    <Link className={'  w-fit'} href="/Items">
+                    <Link className={'  w-fit'} href="/home/Items">
                         <FaArrowLeftLong className="text-lg transition-all hover:translate-x-[-8px] " />
                     </Link>
                     <div className="info">
@@ -49,14 +53,28 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
                         </p>
                     </div>
                 </div>
-                <div className="image">
+                <div className="image" onClick={() => setIsOpen(true)}>
+                    {isOpen && (
+                    <Lightbox 
+                    mainSrc={data.image[photoIndex]}
+                        nextSrc={data.image[(photoIndex + 1) % data.image.length]}
+                        prevSrc={data.image[(photoIndex + data.image.length - 1) % data.image.length]}
+                        onCloseRequest={() => setIsOpen(false)}
+                        onMovePrevRequest={() => {
+                            setPhotoIndex((photoIndex + data.image.length - 1) % data.image.length)
+                        }}
+                        onMoveNextRequest={() => {
+                            setPhotoIndex((photoIndex + 1) % data.image.length)
+                        }}
+                    />
+                    )}
                     <Zoom
                         height={500}
                         width={830}
                         zoomScale={4}
                         transitionTime={0.5}
                         // className=" cursor-crosshair hover:scale-150 transition-all"
-                        src={data.image}
+                        src={data.image[0]}
                         // alt=""
                     />
                 </div>

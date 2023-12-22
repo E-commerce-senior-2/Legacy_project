@@ -3,7 +3,7 @@ import { useSpring, animated, config } from 'react-spring'
 import { FaHeart } from 'react-icons/fa'
 import Link from 'next/link'
 import { Toaster, toast } from 'sonner'
-import { MyContext } from '../../MyContext'
+import { MyContext } from '../../../MyContext'
 import { QueryCache, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import ItemCard from './ItemCard'
@@ -53,6 +53,8 @@ function AllProducts() {
                     ).then(res =>  res.data)
             }else if (handleFilter) {
                 return  axios.get(`http://localhost:3001/items/item/status/${handleFilter}`).then(res => res.data)
+            }else {
+                return  axios.get(`http://localhost:3001/items`).then(res =>  res.data)
             }
         }
     })
