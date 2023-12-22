@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { userSignUp } from '../utils/userQueries/user';
 
 const Signup: React.FC = () => {
   const [display, setDisplay] = useState(false);
@@ -12,29 +13,9 @@ const Signup: React.FC = () => {
   const dateBirth = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [role, setRole] = useState('user');
+  const mutation = userSignUp()
 
-  const submit = () => {
-    const obj = {
-      fullName: fullName.current?.value,
-      userName: userName.current?.value,
-      email: email.current?.value,
-      password: password.current?.value,
-      dateBirth: dateBirth.current?.value,
-    };
-
-    console.log(obj);
-
-    axios
-      .post(`http://127.0.0.1:3001/auth/signup/${role}`, obj)
-      .then(() => {
-        console.log('done');
-        router.push('/');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+ 
   return (
     <div className="flex justify-center flex-col lg:flex-row items-center h-screen">
       <div>
@@ -127,7 +108,17 @@ const Signup: React.FC = () => {
           </div>
         </div>
         <button
-          onClick={submit}
+          onClick={() => {
+            const obj = {
+                fullName: fullName.current?.value,
+                userName: userName.current?.value,
+                email: email.current?.value,
+                password: password.current?.value,
+                dateBirth: dateBirth.current?.value,
+              };
+            mutation.mutate({role, user:obj});
+            router.push('/')
+        }}
           className="bg-[#733709] text-white px-4 mt-3 float-right rounded-full transition duration-200 ease-in-out hover:bg-[#DC9D6D] active:bg-[#B27F58] focus:outline-none"
         >
           Sign in
