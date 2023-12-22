@@ -1,12 +1,12 @@
 'use client'
-import { Button } from "@material-tailwind/react";
-import React, { useContext, useEffect, useState } from "react";
-// import Valentino from "../../assets/Brands/Valentino.png";
-// import Dior from "../../assets/Brands/Dior-Logo.png";
-// import Chanel from "../../assets/Brands/Channel-Logo.png";
-// import LV from "../../assets/Brands/LV.png";
-// import Gucci from "../../assets/Brands/Gucci.png";
-// import Prada from "../../assets/Brands/Prada.png";
+
+import React, { useState } from "react";
+import Valentino from "../assets/brands/Valentino.png";
+import Dior from "../assets/brands/Dior-Logo.png";
+import Chanel from "../assets/brands/Channel-Logo.png";
+import LV from "../assets/brands/LV.png";
+import Gucci from "../assets/brands/Gucci.png";
+import Prada from "../assets/brands/Prada.png";
 import { GrTransaction } from "react-icons/gr";
 import { BsHandbag } from "react-icons/bs";
 import { PiDressDuotone } from "react-icons/pi";
@@ -19,26 +19,26 @@ import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
 import {getCreators} from "./utils/followingCreators/followingCreators";
 import {getBrands} from "./utils/followingBrands/FollowingBrands";
-
+import Image from "next/image";
 
 const brands = [
   {
-    pic: "",
+    pic: Valentino,
   },
   {
-    pic: "",
+    pic: Dior,
   },
   {
-    pic: "",
+    pic: Chanel,
   },
   {
-    pic: "",
+    pic: Prada,
   },
   {
-    pic: "",
+    pic: LV,
   },
   {
-    pic: "",
+    pic: Gucci,
   },
 ];
 
@@ -652,12 +652,11 @@ const Home = () => {
       </div>
     </div>
 
-      {/* {BrandsStatic()} */}
     <div className="flex gap-20 flex-col lg:flex-row opacity-1 items-center justify-between mt-20">
       {brands.map((brand, index) => {
         return (
           <div key={index}>
-            <img src={brand.pic} alt="" className="h-32 w-32" />
+            <Image src={brand.pic} alt="" className="h-32 w-32" />
           </div>
         );
       })}
@@ -772,6 +771,7 @@ const Home = () => {
         Live Shows
       </button>
     </div>
+
       {/* {allCollection()} */}
       {/* {itemIncomming()} */}
       {UpCommingCreators()}
