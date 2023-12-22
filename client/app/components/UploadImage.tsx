@@ -7,65 +7,72 @@ import { addPosts, addProfile, changeBgImagec } from '../utils/profile/profile';
 
 
 interface UploadImageProps {
-  uploaded: boolean;
-  setUploaded: React.Dispatch<React.SetStateAction<boolean>>;
-  change: string;
-  id: number | undefined;
+    uploaded: boolean;
+    setUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+    change: string;
+    id: number | undefined;
 }
 
 
-const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, change, id }) => {
-  const [imageUpload, setImageUpload] = useState<File | undefined>(undefined)
-  const [chang, setChang] = useState<string | null>(null);
+const UploadImage: React.FC<UploadImageProps> = ({ uploaded, setUploaded, change, id }) => {
+    const [imageUpload, setImageUpload] = useState<File | undefined>(undefined)
+    const [chang, setChang] = useState<string | null>(null);
     const [kind, setKind] = useState('')
     const [post, setPost] = useState('')
-   
-    const uploagbg=changeBgImagec()
-    const addposts=addPosts();
-    const imageProfile=addProfile();
-    //////////////:///////////change bg image//////////////////////////////////
-    const changeBgImage = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id:number|undefined, imageUpload: File|undefined, setUploaded: React.Dispatch<React.SetStateAction<boolean>>): Promise<void> => {
-      e.preventDefault();
-  if (imageUpload){
-      const imageRef = ref(storage, `img/${imageUpload.name }`);
-      await uploadBytes(imageRef, imageUpload);
-  
-      const downloadurl = await getDownloadURL(imageRef);
-       uploagbg.mutate( { id, downloadurl})
-      
-          setUploaded(false);
-  }
-  else {
-    console.error('No image selected for upload');
-  }
-  };
-    //////////////////////add post///////////////////////////////////////////
-    const addPost = async (status:string, e:React.MouseEvent<HTMLButtonElement, MouseEvent>,imageUpload:File|undefined) => {
-        e.preventDefault()
-        if (imageUpload){
-        console.log('a')
-        const imageRef = ref(storage, `img/${imageUpload.name }`)
-        await uploadBytes(imageRef, imageUpload)
 
-        const downloadurl = await getDownloadURL(imageRef)
-                addposts.mutate({id,downloadurl,status})
-                setUploaded(false)
-     }
-     else{ console.error('No image selected for upload');}}
+    const uploagbg = changeBgImagec()
+    const addposts = addPosts();
+    const imageProfile = addProfile();
+    //////////////:///////////change bg image//////////////////////////////////
+    const changeBgImage = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: number | undefined, imageUpload: File | undefined, setUploaded: React.Dispatch<React.SetStateAction<boolean>>): Promise<void> => {
+        e.preventDefault();
+        if (imageUpload) {
+            const imageRef = ref(storage, `img/${imageUpload.name}`);
+            await uploadBytes(imageRef, imageUpload);
+
+            const downloadurl = await getDownloadURL(imageRef);
+            uploagbg.mutate({ id, downloadurl })
+
+            setUploaded(false);
+            window.location.reload()
+        }
+        else {
+            console.error('No image selected for upload');
+        }
+    };
+    //////////////////////add post///////////////////////////////////////////
+    const addPost = async (status: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>, imageUpload: File | undefined) => {
+        e.preventDefault()
+        if (imageUpload) {
+            console.log('a')
+            const imageRef = ref(storage, `img/${imageUpload.name}`)
+            await uploadBytes(imageRef, imageUpload)
+
+            const downloadurl = await getDownloadURL(imageRef)
+            addposts.mutate({ id, downloadurl, status })
+            setUploaded(false)
+            window.location.reload()
+        }
+        else { console.error('No image selected for upload'); }
+    }
 
     //////////////////////:change pf image//////////////////////////////////////
-    const changePfImage = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>,imageUpload: File|undefined) => {
+    const changePfImage = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, imageUpload: File | undefined) => {
         e.preventDefault()
         console.log(55555555555)
-        if(imageUpload){
-        const imageRef = ref(storage, `img/${imageUpload.name }`)
-        await uploadBytes(imageRef, imageUpload)
+        if (imageUpload) {
+            const imageRef = ref(storage, `img/${imageUpload.name}`)
+            await uploadBytes(imageRef, imageUpload)
 
-        const downloadurl = await getDownloadURL(imageRef)
-       imageProfile.mutate({id,downloadurl})
-            
-                setUploaded(false)
-        } else { console.error('No image selected for upload');}  
+            const downloadurl = await getDownloadURL(imageRef)
+            imageProfile.mutate({ id, downloadurl })
+            const currentUserString = window.localStorage.getItem('currentUser');
+            const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
+            currentUser.pfImage = downloadurl
+            window.localStorage.setItem("currentUser", JSON.stringify(currentUser))
+            setUploaded(false)
+            window.location.reload()
+        } else { console.error('No image selected for upload'); }
     }
 
     ////////////////////////////:edit profile details//////////////////////////////::
@@ -87,7 +94,7 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
             <div className="flex items-center justify-center lg:p-12 backdrop-blur-lg ">
                 <div className="mx-auto w-full max-w-[550px]  bg-orange-100">
                     <form className="px-9 py-6 ">
-                    <div className="mb-6 pt-4">
+                        <div className="mb-6 pt-4">
                             <label className="mb-5 block text-xl font-semibold text-[#07074D]">
                                 Upload File
                             </label>
@@ -120,13 +127,13 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
                                 </label>
                             </div>
                         </div>
-                        
+
 
                         <div>
                             <button
                                 onClick={async (e) => {
                                     console.log('test')
-                                    changeBgImage(e,id,imageUpload,setUploaded)
+                                    changeBgImage(e, id, imageUpload, setUploaded)
                                 }}
                                 className="hover:shadow-form cursor-pointer w-full rounded-md bg-orange-200 px-8 py-3 text-center text-base font-semibold text-orange-800 outline-none"
                             >
@@ -142,7 +149,7 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
             <div className="flex items-center justify-center lg:p-12 backdrop-blur-lg">
                 <div className="mx-auto w-full max-w-[550px] bg-orange-100">
                     <form className="px-9 py-6">
-                    <div className="mb-6 pt-4">
+                        <div className="mb-6 pt-4">
                             <label className="mb-5 block text-xl font-semibold text-[#07074D]">
                                 Upload File
                             </label>
@@ -175,11 +182,11 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div>
                             <button
                                 onClick={async (e) => {
-                                    changePfImage(e,imageUpload)
+                                    changePfImage(e, imageUpload)
                                 }}
                                 className="hover:shadow-form  cursor-pointer w-full rounded-md bg-orange-200 px-8 py-3 text-center text-base font-semibold text-orange-800 outline-none"
                             >
@@ -264,7 +271,7 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
                                 <button
                                     className="mt-4 rounded-md  cursor-pointer bg-orange-200 bg-gradient-to-r to-blue-500 px-4 py-2 font-bold text-orange-800 transition duration-150 ease-in-out hover:bg-Liver hover:to-PaleDogwood"
                                     onClick={(e) => {
-                                        
+
                                     }}
                                     type="submit"
                                 >
@@ -327,7 +334,7 @@ const UploadImage: React.FC <UploadImageProps> = ({ uploaded, setUploaded, chang
                             <button
                                 onClick={async (e) => {
                                     console.log('testing add post')
-                                    addPost(post, e,imageUpload)
+                                    addPost(post, e, imageUpload)
                                 }}
                                 className="hover:shadow-form cursor-pointer w-full rounded-md bg-orange-200 px-8 py-3 text-center text-base font-semibold text-orange-800  outline-none"
                             >
