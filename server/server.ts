@@ -27,7 +27,6 @@ app.use('/collections', collectionRoute);
 /* Collection Route*/
 //  authentification route 
 
-
 app.use("/auth", authRoute);
 
 app.use("/api/user", userRoute);
