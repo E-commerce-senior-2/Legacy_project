@@ -1,13 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 
-
 export const signup = async (req: Request, res: Response): Promise<void> => {
+  console.log(req.body);
+  
   const { fullName, userName, email, password, dateBirth } = req.body;
   try {
     if (req.params.role === "user") {
@@ -15,92 +16,85 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         where: { email },
       });
       if (existingUserCount !== 0) {
-
-       res.status(409).send("userAlreadyexist");
+        res.status(409).send("userAlreadyexist");
+      } else if (existingUserCount === 0) {
+        const salt = bcryptjs.genSaltSync(5);
+        const hach = bcryptjs.hashSync(password, salt);
+        let user = await prisma.user.create({
+          data: {
+            fullName,
+            userName,
+            email,
+            password: hach,
+            dateBirth,
+          },
+        });
+        res.status(200).json(user);
       }
-      else if(existingUserCount === 0){
-      const salt = bcryptjs.genSaltSync(5);
-      const hach = bcryptjs.hashSync(password, salt);
-      let user = await prisma.user.create({
-        data: {
-          fullName,
-          userName,
-          email,
-          password: hach,
-          dateBirth,
-        },
-      })
-      res.status(200).json("done");
-    }
-    }
-    else if (req.params.role === "creator") {
+    } else if (req.params.role === "creator") {
       const existingUserCount = await prisma.creator.count({
         where: { email },
       });
-      console.log('ddddddd', existingUserCount)
+      console.log("ddddddd", existingUserCount);
       if (existingUserCount !== 0) {
-
         res.status(409).send("userAlreadyexist");
+      } else if (existingUserCount === 0) {
+        const salt = bcryptjs.genSaltSync(5);
+        const hach = bcryptjs.hashSync(password, salt);
+        let user = await prisma.creator.create({
+          data: {
+            fullName,
+            userName,
+            email,
+            password: hach,
+            dateBirth,
+            bgImage: "",
+            pfImage: "",
+            status: false,
+            bio: "",
+            address: "",
+          },
+        });
+        res.status(200).json(user);
       }
-      else if(existingUserCount === 0){
-      const salt = bcryptjs.genSaltSync(5);
-      const hach = bcryptjs.hashSync(password, salt);
-      let user = await prisma.creator.create({
-        data: {
-          fullName,
-          userName,
-          email,
-          password: hach,
-          dateBirth,
-          bgImage: '',
-          pfImage: '',
-          status: false,
-          bio: '',
-          address: ''
-        },
-      })
-      res.status(200).json("done");
-    }}
-  }
-
-  catch (err) {
+    }
+  } catch (err) {
     res.status(500).json({ error: err });
   }
 };
 
 export const signin = async (req: Request, res: Response): Promise<void> => {
   try {
-  
- let user ;
+    let user;
     if (req.params.role === "creator") {
-       user = await prisma.creator.findMany({ where: { email: req.body.email } });
+      user = await prisma.creator.findMany({
+        where: { email: req.body.email },
+      });
     } else {
       user = await prisma.user.findMany({ where: { email: req.body.email } });
     }
 
     if (!user.length) {
-       res.status(409).send("userdoesntexist");
+      res.status(409).send("userdoesntexist");
+    } else {
+      const isPasswordCorrect = bcrypt.compareSync(
+        req.body.password,
+        user[0].password
+      );
+      const {password,...other } = user[0];
+
+      if (!isPasswordCorrect) {
+        res.status(409).send("password incorrect");
+      } else {
+        const token = jwt.sign({ id: user[0].id }, "jwtkey");
+
+        res
+          .cookie("access_token", token, { httpOnly: true })
+          .status(200)
+
+          .send(other);
+      }
     }
-else {
-    const isPasswordCorrect = bcrypt.compareSync(
-      req.body.password,
-      user[0].password
-    );
-    const { password,...other } = user[0];
-
-    if (!isPasswordCorrect) {
-       res.status(409).send("password incorrect");
-    }
-
-    
-
-    const token = jwt.sign({ id: user[0].id }, "jwtkey");
-
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-
-      .send(other);}
   } catch (err) {
     console.error(err);
     res.status(500).send("error");
@@ -112,7 +106,7 @@ export const signing = async (req: Request, res: Response) => {
   console.log(fullName);
   const email: string = req.body.email;
   console.log(email);
-  
+
   let User;
 
   try {
@@ -152,7 +146,7 @@ export const signing = async (req: Request, res: Response) => {
         });
       }
     }
-    if ((req.params.role === "creator")) {
+    if (req.params.role === "creator") {
       User = await prisma.creator.findMany({
         where: { email: req.body.email },
       });
@@ -160,7 +154,6 @@ export const signing = async (req: Request, res: Response) => {
       User = await prisma.user.findMany({ where: { email: req.body.email } });
     }
     console.log(User);
-    
 
     const token = jwt.sign({ id: User[0].id }, "jwtkey");
     const { password, ...other } = User[0];

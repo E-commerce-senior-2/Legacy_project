@@ -1,13 +1,11 @@
 "use client";
 import React, { useContext, useRef, useState } from "react";
 import signin from "../../assets/signin.png";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import logo from "../../assets/logo/log.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase_auth";
-import axios from "axios";
-import { UserContext } from "../../context";
+import { userLogin, userSigninWithGoogle } from "../utils/userQueries/user";
 
 const Signin: React.FC = () => {
   const router = useRouter();
@@ -19,20 +17,8 @@ const Signin: React.FC = () => {
   const [email, setEmail] = useState("");
   const [obj, setObj] = useState({});
   const [role, setRole] = useState("user");
-  const { login, signing } = useContext(UserContext);
-
-  const submit = async () => {
-    try {
-      await login(
-        { password: password.current?.value, email: emails.current?.value },
-        role
-      );
-
-      router.push("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const login = userLogin();
+  const googleSignIn = userSigninWithGoogle() 
 
   const handlegoogle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
@@ -43,7 +29,7 @@ const Signin: React.FC = () => {
         fullName: res.user.displayName,
       };
       console.log(userData);
-      await signing(userData, role);
+      googleSignIn.mutate({role,user:userData})
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -107,7 +93,7 @@ const Signin: React.FC = () => {
           {
             <input
               className="peer border-b border-gray-300 bg-inherit py-1 transition-colors focus:border-b-2 focus:border-blue-700 focus:outline-none"
-              //   variant="standard"
+                // variant="standard"
               ref={emails}
               placeholder="Email"
             />
@@ -125,7 +111,11 @@ const Signin: React.FC = () => {
           )}
           {!desplayp && (
             <button
-              onClick={submit}
+              onClick={(event) => {
+                event.preventDefault();                 
+                const userInput =  { password: password.current?.value, email: emails.current?.value }
+                login.mutate({role, user: userInput })
+              }}
               className="float-right mb-5  mt-3 rounded-full bg-[#733709] px-4 py-2 text-white transition duration-200 ease-in-out hover:bg-[#DC9D6D] focus:outline-none active:bg-[#B27F58]"
             >
               Log In
