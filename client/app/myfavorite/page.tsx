@@ -5,21 +5,17 @@ import { useMutation ,useQueryClient,useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
 import { UserContext } from "../../context";
-import { fetchData,deleteItem } from "../utils/userQueries/user";
+
+import { deleteItem, fetchData } from "../utils/userQueries/my favorite/myfaverte";
 
 
 const MyFavorite = () => {
   const { currentUser } = useContext(UserContext);
   const id = currentUser.id;
 
-  const { data , isLoading, isError, error } = useQuery({
-    queryKey: ["favoriteItems", id],
-    queryFn: () => fetchData(id).then(res => res.data),
-  });
-   
-  
-  
-
+  const { data: favorite, isLoading, isError } = id
+  ? fetchData(id)
+  : { data: null, isLoading: false, isError: false };
   const queryClient = useQueryClient();
   console.log(queryClient);
   
@@ -35,9 +31,9 @@ const MyFavorite = () => {
     return <div>Loading...</div>;
   }
 
-  // if (isError) {
-  //   return <div>Error: </div>;
-  // }
+  if (isError) {
+    return <div>Error: </div>;
+  }
 
   return (
     <div className="mb-6 flex justify-center items-center flex-col">
@@ -45,8 +41,8 @@ const MyFavorite = () => {
         Your favorite items
       </h1>
       <div className="grid min-h-screen w-full p-10 justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center bg-PaleDogwood leading-3 md:grid-cols-2">
-        {data &&
-          data.map((item:any) => (
+        {favorite &&
+          favorite.map((item:any) => (
             <div
               key={item.id}
               className="max-w-xs cursor-pointer rounded-lg bg-Liver p-4 shadow duration-150 hover:scale-105 hover:shadow-md"

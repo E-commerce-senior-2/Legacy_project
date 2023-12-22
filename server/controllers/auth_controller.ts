@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
+  console.log(req.body);
+  
   const { fullName, userName, email, password, dateBirth } = req.body;
   try {
     if (req.params.role === "user") {
@@ -27,7 +29,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
             dateBirth,
           },
         });
-        res.status(200).json("done");
+        res.status(200).json(user);
       }
     } else if (req.params.role === "creator") {
       const existingUserCount = await prisma.creator.count({
@@ -53,7 +55,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
             address: "",
           },
         });
-        res.status(200).json("done");
+        res.status(200).json(user);
       }
     }
   } catch (err) {

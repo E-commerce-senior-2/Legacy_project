@@ -6,6 +6,7 @@ router.get("/", creatorController.getAllCreators)
 router.get("/:id", creatorController.getOneCreators)
 router.put("/:idCreator", creatorController.updateCreator)
 router.post("/newCreator", creatorController.addCreator)
-
+router.put("/bgimage/:id",creatorController.updateBg)
+router.put("/pfimage/:id",creatorController.updatePf)
 
 export default router
