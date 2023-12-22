@@ -9,7 +9,7 @@ import { Toaster, toast } from 'sonner'
 import { MyContext } from '../../../MyContext'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { UserContext } from '@/context'
+// import { UserContext } from '@/context'
 
 const addToFavorite = async (idUser : number, idProduct : number) => {
     console.log(idProduct, 'p')

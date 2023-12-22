@@ -8,14 +8,14 @@ import Zoom from 'react-zoom-image-hover/dist/esm/components/Zoom'
 import Lightbox from 'react-18-image-lightbox'
 import 'react-18-image-lightbox/style.css'
 // import 'react-toastify/dist/ReactToastify.css'
-import { UserContext } from '@/context'
+// import { UserContext } from '@/context'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 // import LikeAlsoDetails from './LikeAlsoDetails'
 function Productdetails({params}: {params : {collectionId : number , name : string}}) {
     // const { collectionId, name } = useParams()
     // const [data, setData] = useState([])
-    const { currentUser } = useContext(UserContext)
+    // const { currentUser } = useContext(UserContext)
     const [isOpen , setIsOpen] = useState(false)
     const [photoIndex , setPhotoIndex] = useState(0)
     console.log(+params.collectionId , params.name.replaceAll("-" , " "))
