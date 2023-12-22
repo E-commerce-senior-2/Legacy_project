@@ -10,9 +10,10 @@ import UploadImage from '@/app/components/UploadImage'
 import PostsImage from '@/app/components/PostsImage'
 import Posts from '@/app/components/Posts'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 // 
 
-const Profile = ({params} : {params : {id : number}}) => {
+const Profile = ({ params }: { params: { id: number } }) => {
     // const [creator, setCreator] = useState<Creator>( 
     //     {id     : 0,             
     //     fullName : '',
@@ -28,15 +29,10 @@ const Profile = ({params} : {params : {id : number}}) => {
     const [change, setChange] = useState('')
     const [uploaded, setUploaded] = useState(false)
     const editProfileRef = useRef<HTMLDivElement>(null);
+    const router = useRouter()
 
- 
-    const  id  =params.id
+    const id = params.id
     console.log(id)
-    
-
-
-
-
 
     ///////////////////////////////////////getCreator/////////////////////////////////////////////////////////////////
     const { data: creator, isLoading: creatorLoading, isError: creatorError } = id
@@ -97,7 +93,8 @@ const Profile = ({params} : {params : {id : number}}) => {
                         data-profile="profile"
                         onClick={() => {
                             setView(!view)
-                            setChange('profile')
+                            router.push('/home/editProfile')
+
                         }}
                         className=" md:absolute    flex h-[45px] w-[164px] items-center justify-center gap-2.5 rounded-[150px] bg-VanDyke p-2.5 md:bottom-[90px] md:right-[00px]"
                     >

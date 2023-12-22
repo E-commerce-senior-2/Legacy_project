@@ -1,14 +1,21 @@
 'use client'
-import React from "react";
+import React, { useRef } from "react";
 import { updateCreatorData, getCreatorData } from "@/app/utils/creatorQueries/creator";
+import { useRouter } from "next/navigation";
 
 const EditProfile = () => {
     const currentUserString = window.localStorage.getItem('currentUser');
     const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
-    console.log(currentUser.id);
+    console.log(currentUser.id,"test");
     const updateCreator = updateCreatorData()
-    
-
+    const fullName = useRef<HTMLInputElement>(null)
+    const userName = useRef<HTMLInputElement>(null)
+    const status = useRef<HTMLInputElement>(null)
+    const email = useRef<HTMLInputElement>(null)
+    const address = useRef<HTMLInputElement>(null)
+    const dateBirth = useRef<HTMLInputElement>(null)
+    const bio = useRef<HTMLTextAreaElement>(null)
+    const router = useRouter()
   return (
     <div className="h-full p-10">
       <div className=" block md:flex rounded-lg">
@@ -18,7 +25,19 @@ const EditProfile = () => {
             <button
               className="-mt-2 text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800"
               onClick={()=>{
-                updateCreator.mutate(currentUser.id)
+                const obj = {
+                  fullName: fullName.current?.value,
+                  userName: userName.current?.value,
+                  status: status.current?.value === "false" ? false : true,
+                  email : email.current?.value,
+                  address: address.current?.value,
+                  dateBirth: dateBirth.current?.value,
+                  bio: bio.current?.value
+                  }
+                  console.log(obj,'test');
+                  
+                updateCreator.mutate({creatorId:currentUser.id,creator:obj})
+                router.push(`/home/profile/${currentUser.id}`)
                 
               }}
             >
@@ -33,7 +52,7 @@ const EditProfile = () => {
             <img
               id="showImage"
               className="max-w-xs w-36 h-36 items-center rounded-full border"
-              src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=200"
+              src={currentUser.pfImage}
               alt=""
             />
           </div>
@@ -54,6 +73,7 @@ const EditProfile = () => {
                   className="border-1 px-4 py-2 w-full rounded-full"
                   type="text"
                   defaultValue={currentUser.fullName}
+                  ref={fullName}
                 />
               </div>
             </div>
@@ -69,6 +89,7 @@ const EditProfile = () => {
                 className="border-1 px-4 py-2 w-full rounded-full"
                 type="email"
                 defaultValue={currentUser.userName}
+                ref={userName}
               />
             </div>
             <div className="pb-4">
@@ -79,10 +100,11 @@ const EditProfile = () => {
                 Status
               </label>
               <input
-                id="email"
+                id="status"
                 className="border-1 px-4 py-2 w-full rounded-full"
-                type="email"
+                type="status"
                 defaultValue={currentUser.status}
+                ref={status}
               />
             </div>
             <div className="pb-4">
@@ -97,6 +119,7 @@ const EditProfile = () => {
                 className="border-1 px-4 py-2 w-full rounded-full"
                 type="email"
                 defaultValue={currentUser.email}
+                ref={email}
               />
             </div>
             <div className="pb-4">
@@ -111,6 +134,7 @@ const EditProfile = () => {
                 className="border-1 px-4 py-2 w-full rounded-full"
                 type="email"
                 defaultValue={currentUser.address}
+                ref={address}
               />
             </div>
             <div className="pb-4">
@@ -121,10 +145,11 @@ const EditProfile = () => {
                 Date of Birth
               </label>
               <input
-                id="email"
+                id="date"
                 className="border-1 px-4 py-2 w-full rounded-full"
                 type="date"
                 defaultValue={currentUser.dateBirth}
+                ref={dateBirth}
               />
             </div>
             <div className="pb-4">
@@ -138,6 +163,7 @@ const EditProfile = () => {
               <textarea
                 id="email"
                 className="border-1 px-4 py-2 w-full rounded-full"
+                ref={bio}
               ></textarea>
 
             </div>
