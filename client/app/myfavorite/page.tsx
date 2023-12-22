@@ -16,6 +16,8 @@ const MyFavorite = () => {
     queryKey: ["favoriteItems", id],
     queryFn: () => fetchData(id).then(res => res.data),
   });
+   
+  
   
 
   const queryClient = useQueryClient();
@@ -69,7 +71,7 @@ const MyFavorite = () => {
                   <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
                     <MdDelete
                       className="text-xl w-8"
-                      // onClick={() => deleteItemMutation.mutate(item.id)}
+                      onClick={() => deleteItemMutation.mutate(item.id)}
                     />
                   </p>
                 </div>

@@ -89,6 +89,9 @@ function Header() {
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <Link href={"/myfavorite/:id"}>Personal Collection</Link>
             </li>
+            <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
+              <Link href={"/basket"}>Basket</Link>
+            </li>
             {/* {currentUser && (
                             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
                                 <Link to="/cart" className="w-20 text-xl">

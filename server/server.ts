@@ -22,6 +22,7 @@ app.use(cors());
 /* Collection Route */
 app.use("/collections", collectionRoute);
 /* Collection Route*/
+
 //  authentification route
 
 app.use("/auth", authRoute);
