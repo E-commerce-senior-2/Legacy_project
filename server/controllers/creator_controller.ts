@@ -35,13 +35,10 @@ export const updateCreator = async (
   const {
     fullName,
     userName,
-    bgImage,
-    pfImage,
     status,
     bio,
     dateBirth,
     email,
-    password,
     address,
   } = req.body;
   try {
@@ -50,13 +47,10 @@ export const updateCreator = async (
       data: {
         fullName: fullName,
         userName: userName,
-        bgImage: bgImage,
-        pfImage: pfImage,
         status: status,
         bio: bio,
         dateBirth: dateBirth,
         email: email,
-        password: password,
         address: address,
       },
     });
