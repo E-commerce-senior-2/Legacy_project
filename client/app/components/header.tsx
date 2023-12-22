@@ -44,7 +44,7 @@ function Header() {
                         } flex w-full flex-col items-start justify-center gap-4 lg:mt-3  lg:max-h-screen lg:flex-row lg:items-center
                         lg:justify-center lg:justify-self-end lg:opacity-100`}
                     >
-                        {location.pathname == '/explore/allProducts' && (
+                        {/* {location.pathname == '/explore/allProducts' && (
                             <li className="relative  hidden items-center text-white lg:flex ">
                                 <IoIosSearch className="absolute pl-2 text-2xl" />
                                 <input
@@ -56,7 +56,7 @@ function Header() {
                                     className="text-md relative  w-screen min-w-full max-w-[350px] rounded-full border-2 bg-transparent p-2 pl-9 text-white outline-none placeholder:text-white "
                                 />
                             </li>
-                        )}
+                        )} */}
 
                         <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
                             <Link href={'/'}>Home</Link>

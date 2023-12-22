@@ -35,13 +35,10 @@ export const updateCreator = async (
   const {
     fullName,
     userName,
-    bgImage,
-    pfImage,
     status,
     bio,
     dateBirth,
     email,
-    password,
     address,
   } = req.body;
   try {
@@ -50,13 +47,10 @@ export const updateCreator = async (
       data: {
         fullName: fullName,
         userName: userName,
-        bgImage: bgImage,
-        pfImage: pfImage,
         status: status,
         bio: bio,
         dateBirth: dateBirth,
         email: email,
-        password: password,
         address: address,
       },
     });
@@ -102,3 +96,29 @@ export const addCreator = async (
     res.status(400).send({ error: err });
   }
 };
+
+export const updateBg=async ( req: Request,res: Response)=>{
+  const { id } = req.params;
+   const {bgImage}=req.body;
+   const newUpdate = await prisma.creator.update({
+    where: { id: +id },
+    data: {
+      
+      bgImage: bgImage,
+      
+    },
+  });
+
+}
+export const updatePf=async (req: Request,res: Response)=>{
+  const { id } = req.params;
+ const {pfImage}= req.body;
+ const newUpdate = await prisma.creator.update({
+  where: { id: +id },
+  data: {
+    pfImage: pfImage,
+    
+  },
+});
+
+}
