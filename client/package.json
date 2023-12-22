@@ -13,7 +13,6 @@
     "@tanstack/react-query": "^5.14.2",
     "@tanstack/react-query-devtools": "^5.14.2",
     "@tanstack/react-query-next-experimental": "^5.14.2",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.2",
     "firebase": "^10.7.1",
    
@@ -23,10 +22,11 @@
     "next": "14.0.4",
     "primereact": "^10.2.1",
     "react": "^18",
+    "react-18-image-lightbox": "^5.1.4",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
-    "react-query": "^3.39.3",
     "react-spring": "^9.7.3",
+    "react-zoom-image-hover": "^1.0.0",
     "sonner": "^1.2.4",
     "sooner": "^1.1.4",
     "uuid": "^9.0.1"
