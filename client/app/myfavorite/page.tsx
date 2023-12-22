@@ -4,14 +4,14 @@ import axios from "axios";
 import { useMutation ,useQueryClient,useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
-import { UserContext } from "../../context";
+
 
 import { deleteItem, fetchData } from "../utils/userQueries/my favorite/myfaverte";
 
 
 const MyFavorite = () => {
-  const { currentUser } = useContext(UserContext);
-  const id = currentUser.id;
+  // const { currentUser } = useContext(UserContext);
+  // const id = currentUser.id;
 
   const { data: favorite, isLoading, isError } = id
   ? fetchData(id)
