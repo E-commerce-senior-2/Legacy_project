@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import bcrypt from 'bcryptjs';
+
 import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 
@@ -68,7 +69,6 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const signin = async (req: Request, res: Response): Promise<void> => {
-  const { fullName, userName, email, dateBirth, id } = req.body;
   try {
   
  let user ;
@@ -86,7 +86,7 @@ else {
       req.body.password,
       user[0].password
     );
-    const { fullName, userName, email, dateBirth,id } = user[0];
+    const { password,...other } = user[0];
 
     if (!isPasswordCorrect) {
        res.status(409).send("password incorrect");
@@ -99,7 +99,8 @@ else {
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
-      .send({ fullName, userName, email, dateBirth, id });}
+
+      .send(other);}
   } catch (err) {
     console.error(err);
     res.status(500).send("error");
@@ -139,9 +140,7 @@ export const signing = async (req: Request, res: Response) => {
       const user = await prisma.user.count({
         where: { email: req.body.email },
       });
-       
-          if (!user) {
-
+      if (!user) {
         const users = await prisma.user.create({
           data: {
             fullName,
