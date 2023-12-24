@@ -2,8 +2,10 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import bcrypt from "bcryptjs";
-
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv"
+
 const prisma = new PrismaClient();
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
@@ -174,4 +176,41 @@ export const logout = async (req: Request, res: Response) => {
     })
     .status(200)
     .send("user has been loged out");
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const user = await prisma.user.findMany({ where: { email: email } });
+  if (!user || user.length === 0) {
+    return res.status(404).send({ status: 'User Not Existed !' });
+  } else {
+    const token = jwt.sign({ id: user[0].id }, "jwtkey");
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'bilelbourgou@gmail.com',
+        pass: 'gzgw fkol tpyq alhg'
+      }
+    });
+
+    var mailOptions = {
+      from: 'bilelbourgou@gmail.com',
+      to: email,
+      subject: 'Reset Password Link',
+      text: `http://localhost:3000/reset-password/${user[0].id}/${token}`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return res.status(500).send({ status: 'Error sending email' });
+      } else {
+        return res.status(200).send({status:'Success'});
+      }
+    });
+  }
 };
