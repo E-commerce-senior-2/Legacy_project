@@ -87,6 +87,15 @@ const Signin: React.FC = () => {
               }}
             >
               Create Account
+            </span> <br />
+            {""}
+            <span
+              className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709] cursor-pointer"
+              onClick={() => {
+                router.push("/forgot-password");
+              }}
+            >
+              Forgot Password ?
             </span>
           </div>
 

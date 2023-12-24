@@ -58,3 +58,16 @@ export const logout = ()=>{
     })
     return query;
 }
+
+export const forgotPassword = ()=>{
+  const query = useMutation({
+    mutationKey: ["forgotPassword"],
+    mutationFn: async (email:any)=> await axios.post('http://localhost:3001/auth/forgot-password',{
+      email:email
+    }),
+    onSuccess: (data)=> console.log(data.data)
+    
+  })
+
+  return query
+}

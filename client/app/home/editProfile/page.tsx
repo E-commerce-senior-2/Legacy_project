@@ -8,7 +8,6 @@ const EditProfile = () => {
     console.log(currentUser.id);
     const updateCreator = updateCreatorData()
     
-
   return (
     <div className="h-full p-10">
       <div className=" block md:flex rounded-lg">
@@ -19,7 +18,7 @@ const EditProfile = () => {
               className="-mt-2 text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800"
               onClick={()=>{
                 updateCreator.mutate(currentUser.id)
-                
+
               }}
             >
               Edit
