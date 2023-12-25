@@ -8,7 +8,7 @@ export const getAllCreators = async (
 ): Promise<void> => {
   try {
     const creators = await prisma.creator.findMany({});
-    res.status(200).send([creators]);
+    res.status(200).send(creators);
   } catch (err) {
     res.status(400).json(err);
   }
