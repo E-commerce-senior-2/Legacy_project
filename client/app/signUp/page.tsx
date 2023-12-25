@@ -122,7 +122,7 @@ const Signup: React.FC = () => {
                 dateBirth: dateBirth.current?.value,
               };
               mutation.mutate({ role, user: obj });
-              router.push("/");
+              router.push("/home");
             }}
             className="bg-[#733709] text-white px-4 mt-3 float-right rounded-full transition duration-200 ease-in-out hover:bg-[#DC9D6D] active:bg-[#B27F58] focus:outline-none"
           >
