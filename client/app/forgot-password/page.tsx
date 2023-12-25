@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     const handleSendClick = (e:any)=>{
         console.log(email.current?.value); 
         forgotPwd.mutate(email.current?.value)
-        
+   
     }
 
 
@@ -33,6 +33,9 @@ const ForgotPassword = () => {
         >
           Send
         </button>
+        {
+            forgotPwd.data ? <p className="text-gray-600">{forgotPwd.data.data.status}</p> : null
+        }
       </div>
     </div>
   );

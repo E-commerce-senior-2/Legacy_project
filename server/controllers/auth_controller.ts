@@ -182,11 +182,12 @@ export const resetPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
   const user = await prisma.user.findMany({ where: { email: email } });
   if (!user || user.length === 0) {
-    return res.status(404).send({ status: 'User Not Existed !' });
+    return res.status(200).send({ status: 'User Not Existed !' });
   } else {
     const token = jwt.sign({ id: user[0].id }, "jwtkey");
-
-    var transporter = nodemailer.createTransport({
+   
+    
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       host: 'smtp.gmail.com',
       port: 465,
@@ -197,7 +198,7 @@ export const resetPassword = async (req: Request, res: Response) => {
       }
     });
 
-    var mailOptions = {
+    const mailOptions = {
       from: 'bilelbourgou@gmail.com',
       to: email,
       subject: 'Reset Password Link',
@@ -213,4 +214,28 @@ export const resetPassword = async (req: Request, res: Response) => {
       }
     });
   }
+};
+
+export const updatePassword = async (req: Request, res: Response) => {
+  const {id,token} = req.params
+  const {password} = req.body
+  
+  jwt.verify(token,"jwtkey",(err,decoded) => {
+      console.log(token);
+      
+    if(err) {
+      return res.status(203).send(err)
+    }else{
+      const salt = bcryptjs.genSaltSync(5);
+      const hashedPassword = bcryptjs.hashSync(password, salt);
+      const updateUser = prisma.user.update({
+        where: {id:+id},
+        data:{
+          password:hashedPassword
+        }
+      })
+      .then((user) => res.send({status: 'success'}))
+      .catch((err) => res.send({status: err}))
+    }
+  })
 };
