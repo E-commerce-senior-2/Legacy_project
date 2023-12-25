@@ -2,36 +2,20 @@ import React from "react";
 // import { useMutation } from "react-query";
 import axios from "axios";
 
-import { useQuery,useMutation} from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 // const queryClient = new QueryClient();
 
 export const fetchBasket = async (Id: any) => {
   const response = await axios.get(`http://localhost:3001/baskets/${Id}`);
-  
-  return response.data;
 
-};
-
-// export const addToBasket = async (userId: any, itemId: any) => {
-//   const response = await axios.post(
-//     `  http://localhost:3001/baskets/${userId}/${itemId}`
-//   );
-//   return response.data;
-// };
-
-export const deleteFromBasket = async (userId: any, itemId: any) => {
-  const response = await axios.delete(
-    `  http://localhost:3001/baskets/${userId}/${itemId}`
-  );
-  console.log(response);
   return response.data;
 };
+
 export const deleteBasket = () => {
   const query = useMutation({
     mutationKey: ["deleteFromBasket"],
-    mutationFn:  async (object:{itemId:any, userId:any}) => {
-      
+    mutationFn: async (object: { itemId: any; userId: any }) => {
       const response = await axios.delete(
         `  http://localhost:3001/baskets/${object.userId}/${object.itemId}`
       );
@@ -40,10 +24,11 @@ export const deleteBasket = () => {
   });
   return query;
 };
-export const  addToBasket = ()=> {
+
+export const addToBasket = () => {
   const query = useMutation({
     mutationKey: ["deleteFromBasket"],
-    mutationFn:  async (object:{userId: any, itemId: any}) => {
+    mutationFn: async (object: { userId: any; itemId: any }) => {
       const response = await axios.delete(
         `  http://localhost:3001/baskets/${object.userId}/${object.itemId}`
       );
@@ -52,5 +37,4 @@ export const  addToBasket = ()=> {
     },
   });
   return query;
-
-}
+};

@@ -777,9 +777,7 @@ const Home = () => {
       </button>
     </div>
 
-      {/* {allCollection()} */}
-      {/* {itemIncomming()} */}
-
+      
       {UpCommingCreators()}
       {UpCommingBrands()}
       {Quetions()}
