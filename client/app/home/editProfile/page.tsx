@@ -8,6 +8,8 @@ const EditProfile = () => {
     const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
     console.log(currentUser.id,"test");
     const updateCreator = updateCreatorData()
+
+
     const fullName = useRef<HTMLInputElement>(null)
     const userName = useRef<HTMLInputElement>(null)
     const status = useRef<HTMLInputElement>(null)
@@ -16,6 +18,7 @@ const EditProfile = () => {
     const dateBirth = useRef<HTMLInputElement>(null)
     const bio = useRef<HTMLTextAreaElement>(null)
     const router = useRouter()
+
   return (
     <div className="h-full p-10">
       <div className=" block md:flex rounded-lg">
@@ -25,6 +28,9 @@ const EditProfile = () => {
             <button
               className="-mt-2 text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800"
               onClick={()=>{
+
+                updateCreator.mutate(currentUser.id)
+
                 const obj = {
                   fullName: fullName.current?.value,
                   userName: userName.current?.value,
@@ -39,6 +45,7 @@ const EditProfile = () => {
                 updateCreator.mutate({creatorId:currentUser.id,creator:obj})
                 router.push(`/home/profile/${currentUser.id}`)
                 
+
               }}
             >
               Edit
