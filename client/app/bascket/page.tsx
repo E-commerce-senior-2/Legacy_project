@@ -90,7 +90,7 @@ const Basket = () => {
                         <div className="flex items-center">
                           <img
                             className="h-16 w-16 mr-4"
-                            src={item.item.image[0]}
+                            src={item.item.image}
                             alt="Product image"
                           />
                           <span className="font-semibold">{item.item.name}</span>
@@ -135,9 +135,9 @@ const Basket = () => {
                 <span className="font-semibold">Total</span>
                 <span className="font-semibold">$21.98</span>
               </div>
-              <a href="https://buy.stripe.com/test_aEUdRi5g35pw86IaEE" className="bg-orange-300 text-white py-2 px-4 rounded-lg mt-4 w-full">
+              <button className="bg-orange-300 text-white py-2 px-4 rounded-lg mt-4 w-full">
                 Checkout
-              </a>
+              </button>
             </div>
           </div>
         </div>
