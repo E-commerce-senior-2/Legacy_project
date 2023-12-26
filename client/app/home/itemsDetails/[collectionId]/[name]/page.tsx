@@ -7,6 +7,7 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 import Zoom from 'react-zoom-image-hover/dist/esm/components/Zoom'
 import Lightbox from 'react-18-image-lightbox'
 import 'react-18-image-lightbox/style.css'
+import { Toaster, toast } from 'sonner'
 // import 'react-toastify/dist/ReactToastify.css'
 // import { UserContext } from '@/context'
 import Link from 'next/link'
@@ -18,16 +19,25 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
     // const { currentUser } = useContext(UserContext)
     const [isOpen , setIsOpen] = useState(false)
     const [photoIndex , setPhotoIndex] = useState(0)
-    console.log(+params.collectionId , params.name.replaceAll("-" , " "))
+    const currentUserString = window.localStorage.getItem("currentUser") || "";
+  const user = JSON.parse(currentUserString);
+    console.log(user)
     
-        const {data , isLoading , error} = useQuery({
-            queryKey :['itemsDetails'],
-            queryFn : () =>
-             axios.get(
-                `http://localhost:3001/Items/brand/collections/${params.name.replaceAll('-' , " ")}`).then(res => res.data) 
+    const {data , isLoading , error} = useQuery({
+        queryKey :['itemsDetails'],
+        queryFn : () =>
+        axios.get(
+            `http://localhost:3001/Items/brand/collections/${params.name.replaceAll('-' , " ")}`).then(res => res.data) 
         })
         if (isLoading) return "...isLoading"
         if (error) return "this is the error" + error.message
+        const addToBasket = async () => {
+            const response = await axios.post(
+                    `  http://localhost:3001/baskets/${user.id}/${data.id}`
+                  );
+                  console.log(response.data)
+                  return response.data;
+        }
 
     return (
         <div className="py-10">
@@ -83,14 +93,14 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
                         ADD TO CART
                         <BsBag className="text-xl" />
                     </button>
-                    <a href='https://buy.stripe.com/test_aEUdRi5g35pw86IaEE' className="flex h-14 items-center gap-2 border border-black px-20 font-medium hover:font-semibold">
-                        BUY WITH
+                    <div className="flex h-14 items-center hover:cursor-pointer gap-2 border border-black px-20 font-medium hover:font-semibold" onClick={() =>{ addToBasket(), toast.success("added to basket")}}>
+                        BUY WITH <Toaster richColors/>
                         <img
                             className="w-16 "
                             src="https://res.cloudinary.com/dc1cdbirz/image/upload/v1702598778/ck5ibqxmsap3vujrbmhh.png"
                             alt=""
                         />
-                    </a>
+                    </div>
                 </div>
             </div>
             {/* <LikeAlsoDetails data={data} /> */}
