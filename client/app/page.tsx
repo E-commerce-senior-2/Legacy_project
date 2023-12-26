@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from "react";
 import Valentino from "../assets/brands/Valentino.png";
 import Dior from "../assets/brands/Dior-Logo.png";
@@ -19,8 +20,6 @@ import { Toaster, toast } from "sonner";
 import {getCreators} from "./utils/followingCreators/followingCreators";
 import {getBrands} from "./utils/followingBrands/FollowingBrands";
 import Image from "next/image";
-// import { ConfirmDialog } from 'primereact/confirmdialog'; 
-// import { confirmDialog } from 'primereact/confirmdialog'; 
         
 const brands = [
   {
@@ -161,8 +160,8 @@ const brands = [
 
 
 const UpCommingCreators = () => { 
-const {data} =getCreators()
-// console.log(data);
+const {data,isLoading,isError} =getCreators()
+
 
   return (
     <div>
@@ -176,9 +175,9 @@ const {data} =getCreators()
           perspectives and boundless creativity redefine style.
         </div>
       </div>
-      <div className="grid grid-cols-3 lg:grid-row mb-12 w-86">
-        {data?.map((artists) => {
-          // console.log(artists);
+      <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
+        {data?.map((artists:any) => {
+          console.log({...artists},"data");
           return (
             <CardCreator
               key={artists.id}
@@ -191,11 +190,11 @@ const {data} =getCreators()
   );
 };
 
-const CardCreator = ({id,fullName,pfImage,bgImage,bio,status}) => {
+const CardCreator = ({id,fullName,pfImage,bgImage,bio,status}:any) => {
   const currentUserString = window.localStorage.getItem('currentUser');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [follow, setFollow] = useState(false);
-  console.log(currentUser.id)
+  console.log(id)
 
     // // Add New Follower to the Creator:
     const newFollower = async (idCreator:string) => {
@@ -217,7 +216,8 @@ const CardCreator = ({id,fullName,pfImage,bgImage,bio,status}) => {
         console.log(err);
       }
     };
-
+    console.log(status);
+    
   return (
       !status && (
       <div
@@ -330,8 +330,8 @@ const UpCommingBrands = () => {
           contemporary elegance.
         </div>
       </div>
-      <div className="grid grid-cols-3 lg:grid-row mb-12 w-86">
-        {data?.map((brand) => {
+      <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
+        {data?.map((brand:any) => {
           return (
             <CardBrands
               key={brand.id}
@@ -344,7 +344,7 @@ const UpCommingBrands = () => {
   );
 };
 
-const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
+const CardBrands = ({id,brandName,brandImage,bgImage,status}:any) => {
   const [follow, setFollow] = useState(false);
   const currentUserString = window.localStorage.getItem('currentUser');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
@@ -371,11 +371,12 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
   };
 
 
+
   return (
     !status && (
       <div
         key={id}
-        className="md:max-w-sm lg:max- xl:max md:mx-auto lg:mx-auto xl:mx-auto mt-12 bg-[#ffffff97] shadow-xl rounded-lg text-gray-900"
+        className="bg-[#ffffff97] shadow-xl rounded-lg text-gray-900"
       >
         <div className="rounded-t-lg h-38 overflow-hidden">
           <img
@@ -465,6 +466,7 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
     )
   );
 };
+
 
 const Quetions = () => {
   const allLabels = [

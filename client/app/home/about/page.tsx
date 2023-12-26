@@ -1,32 +1,37 @@
 import React from "react";
 import { button } from "@material-tailwind/react";
-
-// import Bohmid from "../../assets/AdminsPic/Bohmid.png"
-// import ElCoach from "../../assets/AdminsPic/ElCoach.png"
-// import Maryem from "../../assets/AdminsPic/Maryem.png"
+import Image from "next/image";
+import Bolbol from "../../../assets/Admins/Bolbol.png"
+import ElCoach from "../../../assets/Admins/ElCoach.png"
+import Ameur from "../../../assets/Admins/Ameur.png"
 // import Aziza from "../../assets/AdminsPic/Aziza.png"
 
 const teamMembers = [
+  {
+    name: "Ameur Khoidja",
+    image: Ameur,
+    role: "Scram Master",
+  },
   {
     name: "Aziza Ben Halima",
     image: "",
     role: "Co Founder",
   },
   {
-    name: "Maryem Harmessi",
-    image: "",
+    name: "Bilel Bourgou",
+    image: Bolbol,
     role: "Co Founder",
   },
   {
     name: "Maamoun Bouaouina",
-    image: "",
+    image: ElCoach,
     role: "Co Founder",
   },
   {
-    name: "Ahmed Haddada",
-    image: "",
-    role: "Co Founder",
-  },
+    name:"モハメド・ハッサン・ブーレル",
+    image:"",
+    role:""
+  }
 ];
 
 function firstDesc() {
@@ -213,7 +218,7 @@ function firstDesc() {
               key={index}
               className="relative w-[320px] flex flex-wrap flex-col items-center"
             >
-              <img
+              <Image
                 className="h-72 md:h-96 rounded mb-2 w-[300px]"
                 src={member.image}
                 alt={member.name}
