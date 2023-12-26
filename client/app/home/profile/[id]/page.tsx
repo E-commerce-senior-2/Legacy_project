@@ -32,12 +32,14 @@ const Profile = ({ params }: { params: { id: number } }) => {
     const router = useRouter()
 
     const id = params.id
-    console.log(id)
+   
 
     ///////////////////////////////////////getCreator/////////////////////////////////////////////////////////////////
     const { data: creator, isLoading: creatorLoading, isError: creatorError } = id
         ? getCreator(id)
         : { data: null, isLoading: false, isError: false };
+        const currentUserString = window.localStorage.getItem('currentUser') || "{}"
+        const currentUser = JSON.parse(currentUserString)
     /////////////////////////////////////:get creator's posts///////////////////////////////////////////:
     const { data: posts, isLoading: postLoading, isError: postError } = id
         ? getAllPosts(id)
@@ -53,7 +55,7 @@ const Profile = ({ params }: { params: { id: number } }) => {
                             className="bg-container  md: md: h-[355px] w-[1040px] rounded-[5px] bg-Liver bg-opacity-10 brightness-50"
                             src={creator?.bgImage.toString() || ''} alt=''
                         />
-                        <div
+                        {currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName &&<div
                             ref={editProfileRef}
                             onClick={() => {
                                 setChange('bgimage')
@@ -62,18 +64,18 @@ const Profile = ({ params }: { params: { id: number } }) => {
                             className=" absolute bottom-2  right-[10px] flex h-10  w-10 cursor-pointer items-center  justify-center rounded-[150px] bg-Liver"
                         >
                             <FaPen className="text-md  bg-[#733709bc}-500  absolute text-BabyPowder " />
-                        </div>
+                        </div>}
                     </div>
 
                     <div className="relative top-[-70px] flex flex-col items-center justify-center">
-                        <Image
+                        <img
                             className="  bottom-[-40px] h-[120px] w-[120px] rounded-full border-2 border-white"
                             src={creator?.pfImage.toString() || ''} alt=''
                             width={10}
                             height={10}
                         />
 
-                        <div
+                        {currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <div
                             ref={editProfileRef}
                             onClick={() => {
                                 setChange('pfimage')
@@ -82,13 +84,13 @@ const Profile = ({ params }: { params: { id: number } }) => {
                             className=" absolute bottom-0 right-0 flex h-10  w-10 cursor-pointer items-center  justify-center rounded-[150px] bg-Liver"
                         >
                             <FaCamera className="text-md    bg-Liver text-white " />
-                        </div>
+                        </div>}
                     </div>
                     <p className=" font-['SF Pro Display'] bottom-[50px] w-fit text-center text-[28px] font-semibold text-VanDyke md:absolute md:bottom-[67px]">
                         {creator?.fullName || ''}
                     </p>
 
-                    <div
+                  { currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <div
                         ref={editProfileRef}
                         data-profile="profile"
                         onClick={() => {
@@ -101,7 +103,7 @@ const Profile = ({ params }: { params: { id: number } }) => {
                         <span className="font-['SF Pro Display'] absolute cursor-pointer text-base font-semibold text-white">
                             Edit Profile
                         </span>
-                    </div>
+                    </div>}
 
                     <span className="font-['SF Pro Display']  w-fit text-center text-base font-normal leading-[25px] text-VanDyke text-opacity-80 md:absolute md:bottom-[-4px] md:w-[896px]">
                         {creator?.bio || ''}
@@ -117,14 +119,14 @@ const Profile = ({ params }: { params: { id: number } }) => {
                         />
                     )}
                 </div>
-                <IoIosAddCircleOutline
+              { currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <IoIosAddCircleOutline
                     onClick={() => {
                         setChange('post')
                         setView(!view)
                     }}
                     className="mb-5 cursor-pointer  rounded-[150px] bg-Liver text-white"
                     size={30}
-                />
+                />}
                 <div className="flex flex-col md:flex-row">
                     <div className="mr-24 h-[371px] w-[345px] rounded-[5px] bg-white bg-opacity-10 ">
                         <PostsImage posts={posts} creator={creator} />

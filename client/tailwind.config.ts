@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        BabyPowder: '#FDFAF4',
+        Alabaster: '#E9E5DE',
+        PaleDogwood: '#E7CCC1',
+        Liver: '#705650',
+        VanDyke: '#382E29',
+    },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

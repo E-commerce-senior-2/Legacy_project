@@ -1,6 +1,10 @@
-"use client";
 
-import React, { useState, useRef } from "react";
+'use client'
+
+import React, { useState } from "react";
+
+
+
 import Valentino from "../../assets/brands/Valentino.png";
 import Dior from "../../assets/brands/Dior-Logo.png";
 import Chanel from "../../assets/brands/Channel-Logo.png";
@@ -79,7 +83,7 @@ const UpCommingCreators = () => {
       </div>
       <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
         {data?.map((artists: any) => {
-          console.log({ ...artists }, "data");
+          // console.log({ ...artists }, "data");
           return <CardCreator key={artists.id} {...artists} />;
         })}
       </div>

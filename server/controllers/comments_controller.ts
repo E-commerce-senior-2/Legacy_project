@@ -23,6 +23,7 @@ const createComment = async (req: Request , res : Response) => {
     let Uid = +userId
     let Pid = +postId
     let {comment} = req.body
+    console.log(Uid,Pid,comment)
     try {
         const result = await prisma.comment.create({
             data : {

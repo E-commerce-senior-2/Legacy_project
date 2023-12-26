@@ -24,8 +24,8 @@ app.use("/collections", collectionRoute);
 /* Collection Route*/
 
 app.use("/auth", authRoute);
-
-app.use("/api/user", userRoute);
+//user route 
+app.use("/user", userRoute);
 // brand route:
 app.use("/brands", brandRoute);
 //favorite Items route:

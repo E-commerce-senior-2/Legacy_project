@@ -30,6 +30,7 @@ const ItemCard = ({ id, collectionId, status, gender, name, price, image } : any
     const currentUserString = localStorage.getItem("currentUser")
     const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
 
+    // console.log(currentUser)
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setLikeAnimation(false)
@@ -38,7 +39,7 @@ const ItemCard = ({ id, collectionId, status, gender, name, price, image } : any
         return () => clearTimeout(timeoutId)
     }, [likeAnimation])
 
-    const slideIn:any = useSpring({
+    const slideIn :any = useSpring({
         opacity: 1,
         transform: 'translateY(0)',
         from: { opacity: 1, transform: 'translateY(50px)' },
@@ -47,10 +48,10 @@ const ItemCard = ({ id, collectionId, status, gender, name, price, image } : any
     })
     return (
         <div
-        className="item-box relative flex flex-col items-center justify-start rounded-md border border-gray-300 bg-white p-4 font-medium shadow-md"
-        style={slideIn}
+            style={slideIn}
+            className="item-box relative flex flex-col items-center justify-start rounded-md border border-gray-300 bg-white p-4 font-medium shadow-md"
         >
-                <Carousel showArrows={true} dynamicHeight >
+                <Carousel showArrows={true} dynamicHeight infiniteLoop>
                     <div>
                         <img src={image[0]} alt="404"  className="item-image m-auto  w-fit self-center transition-all hover:scale-125"/>
                     </div>
