@@ -1,14 +1,13 @@
 import React from "react";
-import FancyMama from "../../assets/Brands/FancyMama.png"
+import FancyMama from "../../assets/Brands/FancyMama.png";
 import { FaDiscord } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
 interface LinkGroupProps {
-    children: React.ReactNode;
-    header: string;
-  }
-
+  children: React.ReactNode;
+  header: string;
+}
 
 const LinkGroup: React.FC<LinkGroupProps> = ({ children, header }) => {
   return (
@@ -26,10 +25,9 @@ const LinkGroup: React.FC<LinkGroupProps> = ({ children, header }) => {
 };
 
 interface NavLinkProps {
-    link: string;
-    label: string;
-  }
-
+  link: string;
+  label: string;
+}
 
 const NavLink: React.FC<NavLinkProps> = ({ link, label }) => {
   return (
@@ -52,11 +50,7 @@ const Footer = () => {
             <div className="w-full sm:w-3/3 lg:w-3/12">
               <div className="mb-10 w-full">
                 <a href="/#" className="mb-6 inline-block w-[140px]">
-                  <img
-                    src=""
-                    alt="logo"
-                    className="max-w-full dark:hidden"
-                  />
+                  <img src="" alt="logo" className="max-w-full dark:hidden" />
                 </a>
                 <p className="flex items-center text-sm font-medium text-dark dark:text-white">
                   <span className="mr-3 text-primary">
@@ -161,8 +155,7 @@ const Footer = () => {
           </span>
         </div>
       </footer>
-
     </>
   );
 };
-export default Footer
+export default Footer;

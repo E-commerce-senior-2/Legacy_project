@@ -19,8 +19,8 @@ import { Toaster, toast } from "sonner";
 import {getCreators} from "./utils/followingCreators/followingCreators";
 import {getBrands} from "./utils/followingBrands/FollowingBrands";
 import Image from "next/image";
-import { ConfirmDialog } from 'primereact/confirmdialog'; 
-import { confirmDialog } from 'primereact/confirmdialog'; 
+// import { ConfirmDialog } from 'primereact/confirmdialog'; 
+// import { confirmDialog } from 'primereact/confirmdialog'; 
         
 const brands = [
   {
