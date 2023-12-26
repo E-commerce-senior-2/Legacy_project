@@ -78,15 +78,15 @@ function Header() {
                 } transition-all`}
               >
                 <li className="w-screen border-b bg-[#97928f4d] py-2 pl-5 transition-all hover:bg-[#4e4a4744] hover:pl-5 lg:mt-1">
-                  <Link href="explore/allProducts ">All Products</Link>
+                  <Link href="/home/items">All Products</Link>
                 </li>
                 <li className="w-screen border-b bg-[#97928f4d] py-2 pl-5 transition-all hover:bg-[#4e4a4744] hover:pl-5">
-                  <Link href="/creators">All creators</Link>
+                  <Link href="/home/AllProfiles">All creators</Link>
                 </li>
               </ul>
             </li>
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
-              <Link href={"/myfavorite/:id"}>Personal Collection</Link>
+              <Link href={"/home/Favorite"}>Personal Collection</Link>
             </li>
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <div
@@ -103,13 +103,13 @@ function Header() {
                 } transition-all`}
               >
                 <li className=" mt-1 w-screen border-b bg-[#97928f4d] py-2   pl-5 transition-all hover:bg-[#4e4a4744] hover:pl-5">
-                  <Link href={"/statistics"}>Statistics</Link>
+                  <Link href={"/home/statistics"}>Statistics</Link>
                 </li>
                 <li
                   className=" w-screen border-b bg-[#97928f4d] py-2 pl-5 transition-all  hover:bg-[#4e4a4744] hover:pl-5
                                 "
                 >
-                  <Link href={"/about"} className=" ">
+                  <Link href={"/home/about"} className=" ">
                     About
                   </Link>
                 </li>
@@ -124,7 +124,7 @@ function Header() {
               className="wallet    flex  items-center  gap-3 text-white
                     lg:flex"
             >
-              <Link href="/bascket" className=" text-xl">
+              <Link href="/home/basket" className=" text-xl">
                 <FaCartArrowDown />
               </Link>
               <FaRegBell className="hidden cursor-pointer text-2xl lg:block" />
@@ -155,7 +155,7 @@ function Header() {
                     onMouseLeave={() => setShowProfile(false)}
                   >
                     <Link
-                      href={`/profile/${currentUser.id}`}
+                      href={`home/profile/${currentUser.id}`}
                       className="mb-1 rounded-md bg-[#97928f4d] px-10 py-2  transition-colors  hover:bg-[#97928f8a]"
                     >
                       Profile
