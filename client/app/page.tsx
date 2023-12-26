@@ -1,15 +1,15 @@
 'use client'
 
 import React, { useState } from "react";
-// import Valentino from "../../assets/brands/Valentino.png";
-// import Dior from "../../assets/brands/Dior-Logo.png";
-// import Chanel from "../../assets/brands/Channel-Logo.png";
-// import LV from "../../assets/brands/LV.png";
-// import Gucci from "../../assets/brands/Gucci.png";
-// import Prada from "../../assets/brands/Prada.png";
-// import { GrTransaction } from "react-icons/gr";
-// import { BsHandbag } from "react-icons/bs";
-// import { PiDressDuotone } from "react-icons/pi";
+import Valentino from "../assets/brands/Valentino.png";
+import Dior from "../assets/brands/Dior-Logo.png";
+import Chanel from "../assets/brands/Channel-Logo.png";
+import LV from "../assets/brands/LV.png";
+import Gucci from "../assets/brands/Gucci.png";
+import Prada from "../assets/brands/Prada.png";
+import { GrTransaction } from "react-icons/gr";
+import { BsHandbag } from "react-icons/bs";
+import { PiDressDuotone } from "react-icons/pi";
 // import Product from "../pages/LayoutExplore/AllProducts"
 import axios from "axios";
 // import { useSpring, animated, config } from "react-spring";
@@ -17,28 +17,28 @@ import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
-// import {getCreators} from "../utils/followingCreators/FollowingCreators";
-// import {getBrands} from "../utils/followingBrands/FollowingBrands";
+import {getCreators} from "./utils/followingCreators/followingCreators";
+import {getBrands} from "./utils/followingBrands/FollowingBrands";
 import Image from "next/image";
         
 const brands = [
   {
-    pic: "Valentino",
+    pic: Valentino,
   },
   {
-    pic: "Dior",
+    pic: Dior,
   },
   {
-    pic: "Chanel",
+    pic: Chanel,
   },
   {
-    pic: "Prada",
+    pic: Prada,
   },
   {
-    pic: "LV",
+    pic: LV,
   },
   {
-    pic: "Gucci",
+    pic: Gucci,
   },
 ];
 
@@ -160,8 +160,8 @@ const brands = [
 
 
 const UpCommingCreators = () => { 
-const {data} =getCreators()
-// console.log(data);
+const {data,isLoading,isError} =getCreators()
+
 
   return (
     <div>
@@ -175,9 +175,9 @@ const {data} =getCreators()
           perspectives and boundless creativity redefine style.
         </div>
       </div>
-      <div className="grid grid-cols-3 lg:grid-row mb-12 w-86">
+      <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
         {data?.map((artists:any) => {
-          // console.log(artists);
+          console.log({...artists},"data");
           return (
             <CardCreator
               key={artists.id}
@@ -194,7 +194,7 @@ const CardCreator = ({id,fullName,pfImage,bgImage,bio,status}:any) => {
   const currentUserString = window.localStorage.getItem('currentUser');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [follow, setFollow] = useState(false);
-  // console.log(currentUser.id)
+  console.log(id)
 
     // // Add New Follower to the Creator:
     const newFollower = async (idCreator:string) => {
@@ -216,7 +216,8 @@ const CardCreator = ({id,fullName,pfImage,bgImage,bio,status}:any) => {
         console.log(err);
       }
     };
-
+    console.log(status);
+    
   return (
       !status && (
       <div
@@ -329,7 +330,7 @@ const UpCommingBrands = () => {
           contemporary elegance.
         </div>
       </div>
-      <div className="grid grid-cols-3 lg:grid-row mb-12 w-86">
+      <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
         {data?.map((brand:any) => {
           return (
             <CardBrands
@@ -370,11 +371,12 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}:any) => {
   };
 
 
+
   return (
     !status && (
       <div
         key={id}
-        className="md:max-w-sm lg:max- xl:max md:mx-auto lg:mx-auto xl:mx-auto mt-12 bg-[#ffffff97] shadow-xl rounded-lg text-gray-900"
+        className="bg-[#ffffff97] shadow-xl rounded-lg text-gray-900"
       >
         <div className="rounded-t-lg h-38 overflow-hidden">
           <img

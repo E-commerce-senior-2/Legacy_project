@@ -17,11 +17,12 @@ export const getCreatorData = (creatorId: number) => {
 export const updateCreatorData = () => {
   const query = useMutation({
     mutationKey: ["updateCreator"],
-    mutationFn: async (creatorId) => {
+    mutationFn: async (object:{creatorId:number,creator:any}) => {
       const result = await axios.put(
-        `http://localhost:3001/creators/${creatorId}`
+        `http://localhost:3001/creators/${object.creatorId}`,
+        object.creator
       );
-      
+      console.log(result)
     },
   });
 

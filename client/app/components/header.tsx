@@ -18,8 +18,8 @@ function Header() {
   const [showMoreNav, setShowMoreNav] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const currentUserString = localStorage.getItem("currentUser") || "";
-  let currentUser:any;
-  currentUserString ? currentUser = JSON.parse(currentUserString) : null
+  let currentUser: any;
+  currentUserString ? (currentUser = JSON.parse(currentUserString)) : null;
   const userLogout = logout();
   // const { setInputFilter } = useContext(MyContext)
 
@@ -92,13 +92,6 @@ function Header() {
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <Link href={"/myfavorite/:id"}>Personal Collection</Link>
             </li>
-            {currentUser && (
-              <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
-                <Link href="/bascket" className="w-20 text-xl">
-                  <FaCartArrowDown />
-                </Link>
-              </li>
-            )}
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <div
                 className="flex cursor-pointer items-center"
@@ -135,6 +128,9 @@ function Header() {
               className="wallet    flex  items-center  gap-3 text-white
                     lg:flex"
             >
+              <Link href="/bascket" className=" text-xl">
+                <FaCartArrowDown />
+              </Link>
               <FaRegBell className="hidden cursor-pointer text-2xl lg:block" />
               <FaRegMessage className="hidden cursor-pointer text-2xl lg:block" />
               <Link
@@ -171,8 +167,8 @@ function Header() {
 
                     <Link
                       href="/home"
-                      onClick={()=>{
-                        userLogout.mutate()
+                      onClick={() => {
+                        userLogout.mutate();
                       }}
                       className="rounded-md bg-[#97928f4d] px-10 py-2 transition-colors hover:bg-[#97928f8a]"
                     >
@@ -189,7 +185,7 @@ function Header() {
                 href={"/signUp"}
                 className="cursor-pointer rounded-lg border px-5 py-1"
               >
-                Login
+                Register
               </Link>
               <Link
                 href={"signIn"}

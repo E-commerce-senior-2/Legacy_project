@@ -96,3 +96,29 @@ export const addCreator = async (
     res.status(400).send({ error: err });
   }
 };
+
+export const updateBg=async ( req: Request,res: Response)=>{
+  const { id } = req.params;
+   const {bgImage}=req.body;
+   const newUpdate = await prisma.creator.update({
+    where: { id: +id },
+    data: {
+      
+      bgImage: bgImage,
+      
+    },
+  });
+
+}
+export const updatePf=async (req: Request,res: Response)=>{
+  const { id } = req.params;
+ const {pfImage}= req.body;
+ const newUpdate = await prisma.creator.update({
+  where: { id: +id },
+  data: {
+    pfImage: pfImage,
+    
+  },
+});
+
+}
