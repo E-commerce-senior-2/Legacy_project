@@ -7,6 +7,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase_auth";
 import { userLogin, userSigninWithGoogle } from "../utils/userQueries/user";
 import RootLayout from "../layout";
+import { Toaster, toast } from "sonner";
 
 const Signin: React.FC = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const Signin: React.FC = () => {
       };
       console.log(userData);
       googleSignIn.mutate({ role, user: userData });
-      router.push("/");
+      router.push("/home");
     } catch (error) {
       console.error(error);
     }
@@ -56,20 +57,20 @@ const Signin: React.FC = () => {
             {" "}
           </span>
           <span
-            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709]"
+            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709] cursor-pointer"
             onClick={() => {
-              setRole("creator");
+              setRole("creator"), toast.success("You are a Creator Now ! "); 
             }}
           >
-            Yes
+            Yes <Toaster richColors />
           </span>
           <span
-            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709]"
+            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709] cursor-pointer"
             onClick={() => {
-              setRole("user");
+              setRole("user"), toast.success("You are a User Now ! ");
             }}
           >
-            /No
+            /No <Toaster richColors />
           </span>
         </div>
 
