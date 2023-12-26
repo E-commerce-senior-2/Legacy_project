@@ -466,7 +466,6 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
   );
 };
 
-
 const Quetions = () => {
   const allLabels = [
     {

@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState } from "react";
-import Valentino from "../assets/brands/Valentino.png";
-import Dior from "../assets/brands/Dior-Logo.png";
-import Chanel from "../assets/brands/Channel-Logo.png";
-import LV from "../assets/brands/LV.png";
-import Gucci from "../assets/brands/Gucci.png";
-import Prada from "../assets/brands/Prada.png";
+import Valentino from "../../assets/brands/Valentino.png";
+import Dior from "../../assets/brands/Dior-Logo.png";
+import Chanel from "../../assets/brands/Channel-Logo.png";
+import LV from "../../assets/brands/LV.png";
+import Gucci from "../../assets/brands/Gucci.png";
+import Prada from "../../assets/brands/Prada.png";
 import { GrTransaction } from "react-icons/gr";
 import { BsHandbag } from "react-icons/bs";
 import { PiDressDuotone } from "react-icons/pi";
@@ -20,6 +20,7 @@ import { Toaster, toast } from "sonner";
 import {getCreators} from "../utils/followingCreators/followingCreators";
 import {getBrands} from "../utils/followingBrands/FollowingBrands";
 import Image from "next/image";
+import { Popconfirm, initTE} from "tw-elements";
 import { ConfirmDialog } from 'primereact/confirmdialog'; 
 import { confirmDialog } from 'primereact/confirmdialog'; 
         
@@ -349,6 +350,9 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
   const [follow, setFollow] = useState(false);
   const currentUserString = window.localStorage.getItem('currentUser');
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
+
+  initTE({ Popconfirm })
+
   // Add New Follower to the Brand:
   const newFollowBrand = async (idBrand:string) => {
     try {
@@ -435,32 +439,35 @@ const CardBrands = ({id,brandName,brandImage,bgImage,status}) => {
         </ul>
 
         <div className="p-4 border-t mx-8 mt-2">
-          {!follow && (
-            <button
+          {!follow && 
+           (
+
+            <button 
               onClick={() => {
                 !currentUser
-                  ?toast.error(" You Need To Login First") 
-                  : 
-                  newFollowBrand(id),
-                  currentUser ? setFollow(true) : "";
+                ?toast.error(" You Need To Login First") 
+                :
+                newFollowBrand(id),
+                currentUser ? setFollow(true) : "";
               }}
               className="w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
-            >
+              >
               {" "}
               Follow <Toaster richColors />{" "}
             </button>
           )}
           {follow && (
             <button
-              onClick={() => {
-                window.confirm(`Are you sure to unfollow ${brandName}`),
-                removeFollowBrand(id), setFollow(false);
-              }}
-              className="w-1/2 block mx-auto rounded-full bg-[#09080876] hover:shadow-lg font-semibold text-white px-6 py-2"
+            onClick={() => { 
+              window.confirm(`Are you sure to unfollow ${brandName}`),
+              removeFollowBrand(id), setFollow(false);
+            }}
+            className="w-1/2 block mx-auto rounded-full bg-[#09080876] hover:shadow-lg font-semibold text-white px-6 py-2"
             >
+
               Unfollow
             </button>
-          )}
+          )}    
         </div>
       </div>
     )
@@ -692,7 +699,7 @@ const Home = () => {
             in celebrating the evolution of style as FancyMama continues to make
             waves in the world of luxury fashion.
           </p>
-          <Link className="flex item-center mr-20" href={"/About"}>
+          <Link className="flex item-center mr-20" href={"/about"}>
             <button className="bg-[#733709bc] p-2 text-white font-sans w-16 mb-20 ml-14 justify-center">
               More
             </button>

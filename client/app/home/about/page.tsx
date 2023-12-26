@@ -1,33 +1,36 @@
 import React from "react";
-import { button } from "@material-tailwind/react";
-
 // import Bohmid from "../../assets/AdminsPic/Bohmid.png"
-// import ElCoach from "../../assets/AdminsPic/ElCoach.png"
+import ElCoach from "../../../assets/Admins/ElCoach.png"
 // import Maryem from "../../assets/AdminsPic/Maryem.png"
-// import Aziza from "../../assets/AdminsPic/Aziza.png"
-
+import Aziza from "../../../assets/Admins/Aziza.png"
+import Image from "next/image";
 const teamMembers = [
     {
         name: "Aziza Ben Halima",
-        image: "",
+        image: Aziza,
         role: "Co Founder"
     },
     {
-        name: "Maryem Harmessi",
+        name: "Bilel Bourgou",
         image: "",
         role: "Co Founder"
     },
     {
         name: "Maamoun Bouaouina",
+        image: ElCoach,
+        role: "Co Founder"
+    },
+    {
+        name: "Ameur Koidja",
         image: "",
         role: "Co Founder"
     },
     {
-        name: "Ahmed Haddada",
+        name: "Mohamed Hasan Bouhlel",
         image: "",
         role: "Co Founder"
     }
-
+    
 ]
 
 
@@ -110,9 +113,9 @@ function firstDesc() {
                 <div className="text-center text-slate-900 text-opacity-50 text-lg md:text-xl font-medium font-sans leading-7 md:leading-9 mt-8">Our community at <strong> FancyMama</strong>{" "} is a diverse tapestry of trendsetters and fashion enthusiasts. Whether you're a creator shaping the scene or a discerning shopper, our members form the core of a shared love for style and luxury. Join us in the celebration of individuality and expression at FancyMama, where every member contributes to the vibrant world of fashion.</div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2  justify-items-center gap-4 md:gap-8 lg:gap-12 mt-4 md:mt-8 lg:mt-12">
-                    {teamMembers.map((member, index) => (
+                    {teamMembers?.map((member, index) => (
                         <div key={index} className="relative w-[320px] flex flex-wrap flex-col items-center">
-                            <img className="h-72 md:h-96 rounded mb-2 w-[300px]" src={member.image} alt={member.name} />
+                            <Image className="h-72 md:h-96 rounded mb-2 w-[300px]" src={member.image} alt={member.name} />
                             <div className="text-center text-slate-600 text-xl md:text-2xl font-semibold font-sans tracking-wide mb-1 italic">{member.name}</div>
                             <div className="w-32 h-9 p-2.5 bg-[#73370996] bg-opacity-20 rounded-full justify-center items-center gap-2.5 inline-flex">
                                 <div className=" text-[#fffafadf] text-base md:text-lg font-meduim font-serif tracking-tight">{member.role}</div>

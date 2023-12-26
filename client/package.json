@@ -28,6 +28,7 @@
     "react-zoom-image-hover": "^1.0.0",
     "sonner": "^1.2.4",
     "sooner": "^1.1.4",
+    "tw-elements": "^1.1.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
