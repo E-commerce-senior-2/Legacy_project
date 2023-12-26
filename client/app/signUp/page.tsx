@@ -94,7 +94,7 @@ const Signup: React.FC = () => {
             />
           </div>
           <div className="mb-6">
-            <input
+            <input type="password"
               className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
               onClick={() => setDisplay(!display)}
               ref={password}

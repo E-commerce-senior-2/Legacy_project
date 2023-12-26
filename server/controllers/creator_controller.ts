@@ -132,7 +132,7 @@ export const searchCreator= async (req: Request,res: Response)=>{
     where: { fullName: name },
    
   });
-res.status(200).send(searchCreator)}
+res.status(200).send(creator)}
   catch(err){
     res.status(500).send(err)
 

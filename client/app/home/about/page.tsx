@@ -6,32 +6,27 @@ import Bolbol from "../../../assets/Admins/Bolbol.png";
 import ElCoach from "../../../assets/Admins/ElCoach.png";
 import Ameur from "../../../assets/Admins/Ameur.png";
 import Aziza from "../../../assets/Admins/Aziza.png";
-
+import Hassan from "../../../assets/Admins/Hassan.png"
 const teamMembers = [
-  // {
-  //   name: "Ameur Khoidja",
-  //   image: Ameur,
-  //   role: "Scram Master",
-  // },
   {
     name: "Aziza Ben Halima",
     image: Aziza,
     role: "Co Founder",
   },
   {
-    name: "Bilel Bourgou",
-    image: Bolbol,
-    role: "Co Founder",
-  },
-  {
     name: "Maamoun Bouaouina",
     image: ElCoach,
-    role: "Co Founder",
+    role: "Product Owner",
   },
   {
     name: "モハメド・ハッサン・ブーレル",
-    image: "",
-    role: "",
+    image: Hassan,
+    role: "Co Founder",
+  },
+  {
+    name: "Bilel Bourgou",
+    image: Bolbol,
+    role: "Co Founder",
   },
 ];
 
@@ -238,7 +233,7 @@ function firstDesc() {
               <div className="text-center text-slate-600 text-xl md:text-2xl font-semibold font-sans tracking-wide mb-1 italic">
                 {member.name}
               </div>
-              <div className="w-32 h-9 p-2.5 bg-[#73370996] bg-opacity-20 rounded-full justify-center items-center gap-2.5 inline-flex">
+              <div className="w-36 h-9 p-2.5 bg-[#73370996] bg-opacity-20 rounded-full justify-center items-center gap-2.5 inline-flex">
                 <div className=" text-[#fffafadf] text-base md:text-lg font-meduim font-serif tracking-tight">
                   {member.role}
                 </div>

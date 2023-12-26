@@ -83,7 +83,6 @@ const UpCommingCreators = () => {
       </div>
       <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
         {data?.map((artists: any) => {
-          // console.log({ ...artists }, "data");
           return <CardCreator key={artists.id} {...artists} />;
         })}
       </div>
@@ -452,7 +451,7 @@ const Home = () => {
   return (
     <div className="px-[10rem]">
       <div className="flex flex-col lg:flex-row items-center justify-around mt-20 ">
-        <Link href={"/explore/allProducts"}>
+        <Link href={"/home/Items"}>
           <button className="w-60 h-12  bg-[#382e29] rounded-lg justify-center items-center text-white text-xl font-medium ">
             Main Collection
           </button>
@@ -462,8 +461,8 @@ const Home = () => {
         </button>
       </div>
 
-      <div className=" h-screen flex flex-col lg:flex-row gap-35 justify-around items-center w-1/2 ">
-        <div>
+      <div className=" h-screen flex flex-col  lg:flex-row gap-[10rem] justify-around items-center w-1/2 ">
+        <div className="mt-[-14rem]">
           <h1 className="text-[#705650db] text-6xl font-extrabold font-['SF Pro Display'] text-center">
             FancyMama
           </h1>
@@ -480,7 +479,7 @@ const Home = () => {
             <button className=" w-40 h-12 bg-gradient-to-bl bg-[#382e29] rounded-lg justify-center items-center gap-2.3 inline-flex text-white text-xl font-medium font-['Poppins']">
               Explore Now
             </button>
-            <Link href={"/explore/allProducts"}>
+            <Link href={"/home/Items"}>
               <button className="text-white text-xl font-medium font-['Poppins'] w-28 h-12 px-5 py-2.5 left-[181px] top-0  bg-[#70565099] rounded-lg justify-center items-center gap-2.5 inline-flex">
                 Products
               </button>
