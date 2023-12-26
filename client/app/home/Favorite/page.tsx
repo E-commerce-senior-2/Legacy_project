@@ -2,8 +2,7 @@
 
 import {  useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
-import { deleteItem, fetchData } from "../utils/my favorite/favorite";
-
+import { deleteItem ,fetchData } from "@/app/utils/my favorite/favorite";
 export const MyFavorite = () => {
   const currentUserString = window.localStorage.getItem("currentUser") || "";
   const user = JSON.parse(currentUserString);
@@ -46,6 +45,7 @@ export const MyFavorite = () => {
                 <div className="my-4 flex items-center justify-between px-4">
                   <p className="text-sm font-semibold text-gray-500">Delete</p>
                   <p className="rounded-full bg-gray-200  hover:bg-red-500 px-2 py-0.5 text-xs font-semibold text-gray-600">
+
                     <MdDelete
                       className="text-xl w-8"
                       onClick={() => {

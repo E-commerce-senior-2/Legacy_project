@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState } from "react";
-import Valentino from "../assets/brands/Valentino.png";
-import Dior from "../assets/brands/Dior-Logo.png";
-import Chanel from "../assets/brands/Channel-Logo.png";
-import LV from "../assets/brands/LV.png";
-import Gucci from "../assets/brands/Gucci.png";
-import Prada from "../assets/brands/Prada.png";
+import Valentino from "../../assets/brands/Valentino.png";
+import Dior from "../../assets/brands/Dior-Logo.png";
+import Chanel from "../../assets/brands/Channel-Logo.png";
+import LV from "../../assets/brands/LV.png";
+import Gucci from "../../assets/brands/Gucci.png";
+import Prada from "../../assets/brands/Prada.png";
 import { GrTransaction } from "react-icons/gr";
 import { BsHandbag } from "react-icons/bs";
 import { PiDressDuotone } from "react-icons/pi";
@@ -20,8 +20,6 @@ import { Toaster, toast } from "sonner";
 import {getCreators} from "../utils/followingCreators/followingCreators";
 import {getBrands} from "../utils/followingBrands/FollowingBrands";
 import Image from "next/image";
-import { ConfirmDialog } from 'primereact/confirmdialog'; 
-import { confirmDialog } from 'primereact/confirmdialog'; 
         
 const brands = [
   {

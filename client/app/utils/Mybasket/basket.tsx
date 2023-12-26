@@ -12,6 +12,7 @@ export const fetchBasket = async (Id: any) => {
   return response.data;
 };
 
+import { TEAnimation } from "tw-elements-react";
 export const deleteBasket = () => {
   const query = useMutation({
     mutationKey: ["deleteFromBasket"],
@@ -28,8 +29,8 @@ export const deleteBasket = () => {
 export const addToBasket = () => {
   const query = useMutation({
     mutationKey: ["deleteFromBasket"],
-    mutationFn: async (object: { userId: any; itemId: any }) => {
-      const response = await axios.delete(
+    mutationFn: async (object: { userId: any, itemId: any }) => {
+      const response = await axios.post(
         `  http://localhost:3001/baskets/${object.userId}/${object.itemId}`
       );
       console.log(response);
@@ -38,3 +39,7 @@ export const addToBasket = () => {
   });
   return query;
 };
+
+
+
+
