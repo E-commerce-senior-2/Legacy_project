@@ -6,10 +6,7 @@ import Link from 'next/link'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Toaster, toast } from 'sonner'
-import { MyContext } from '../../../MyContext'
-import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-// import { UserContext } from '@/context'
 
 const addToFavorite = async (idUser : number, idProduct : number) => {
     console.log(idProduct, 'p')
@@ -50,15 +47,15 @@ const ItemCard = ({ id, collectionId, status, gender, name, price, image } : any
         className="item-box relative flex flex-col items-center justify-start rounded-md border border-gray-300 bg-white p-4 font-medium shadow-md"
         style={slideIn}
         >
-                <Carousel showArrows={true} dynamicHeight >
+                <Carousel showArrows={true} showThumbs={false} autoPlay infiniteLoop>
                     <div>
-                        <img src={image[0]} alt="404"  className="item-image m-auto  w-fit self-center transition-all hover:scale-125"/>
+                        <img src={image[0]} alt="404"  className="item-image m-auto h-[300px]  w-fit self-center transition-all hover:scale-125"/>
                     </div>
                     <div>
-                        <img src={image[1]} alt="404" className="item-image m-auto  w-fit self-center transition-all hover:scale-125" />
+                        <img src={image[1]} alt="404" className="item-image m-auto h-[300px]  w-fit self-center transition-all hover:scale-125" />
                     </div>
                     <div>
-                        <img src={image[2]} alt="404" className="item-image m-auto  w-fit self-center transition-all hover:scale-125" />
+                        <img src={image[2]} alt="404" className="item-image m-auto h-[300px]  w-fit self-center transition-all hover:scale-125" />
                     </div>
                     </Carousel>
             <Link href={`/home/itemsDetails/${collectionId}/${name.replaceAll(' ', '-')}`}>

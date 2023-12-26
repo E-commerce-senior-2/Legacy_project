@@ -9,7 +9,7 @@ import { IoIosSearch } from "react-icons/io";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa6";
 import Link from "next/link";
-// import { userContext } from '../../Usercontext.jsx'
+import { logout } from "../utils/userQueries/user";
 // import { MyContext } from '../../MyContext.jsx'
 function Header() {
   // const location = useLocation()
@@ -17,7 +17,10 @@ function Header() {
   const [showExploreNav, setShowExploreNav] = useState(false);
   const [showMoreNav, setShowMoreNav] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  // const { logout, currentUser } = useContext(userContext)
+  const currentUserString = localStorage.getItem("currentUser") || "";
+  let currentUser: any;
+  currentUserString ? (currentUser = JSON.parse(currentUserString)) : null;
+  const userLogout = logout();
   // const { setInputFilter } = useContext(MyContext)
 
   return (
@@ -31,7 +34,7 @@ function Header() {
       <div className="min-h-20  relative flex h-full w-full items-start justify-center gap-3 px-3 py-3    lg:items-center lg:px-14 ">
         <div className="div flex max-w-[40%]     flex-col  md:w-full lg:max-w-full lg:flex-row lg:items-center lg:gap-14 ">
           <div className="logo  text-2xl font-bold ">
-            <Link href={"/"}>
+            <Link href={"/home"}>
               <img src="" className="h-14" />
             </Link>
           </div>
@@ -59,7 +62,7 @@ function Header() {
             )}
 
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
-              <Link href={"/"}>Home</Link>
+              <Link href={"/home"}>Home</Link>
             </li>
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <div
@@ -89,16 +92,6 @@ function Header() {
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <Link href={"/myfavorite/:id"}>Personal Collection</Link>
             </li>
-            <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
-              <Link href={"/basket"}>Basket</Link>
-            </li>
-            {/* {currentUser && (
-                            <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
-                                <Link to="/cart" className="w-20 text-xl">
-                                    <FaCartArrowDown />
-                                </Link>
-                            </li>
-                        )} */}
             <li className="border-b-2 border-transparent  transition-all lg:py-2  lg:hover:border-black">
               <div
                 className="flex cursor-pointer items-center"
@@ -130,73 +123,80 @@ function Header() {
         </div>
 
         <div className="relative flex items-center justify-center gap-3 lg:gap-14">
-          {/* {currentUser && (
-                        <div
-                            className="wallet    flex  items-center  gap-3 text-white
+          {currentUser && (
+            <div
+              className="wallet    flex  items-center  gap-3 text-white
                     lg:flex"
-                        >
-                            <FaRegBell className="hidden cursor-pointer text-2xl lg:block" />
-                            <FaRegMessage className="hidden cursor-pointer text-2xl lg:block" />
-                            <Link className="cursor-pointer rounded-lg border px-5 py-1">
-                                Wallet
-                            </Link>
-                            <span
-                                className="flex cursor-pointer items-center gap-3"
-                                onClick={() => setShowProfile(!showProfile)}
-                            >
-                                <IoIosArrowDown />
-                                <img
-                                    src="https://valentino-cdn.thron.com/delivery/public/image/valentino/ec475334-a0c3-474c-809b-9845876bcc65/ihqstx/std/2000x0/VALENTINO-GARAVANI-NITE-OUT-SATIN-PUMP-110-MM?quality=80&size=35&format=auto"
-                                    className="h-10 w-12 rounded-full  border-none bg-black"
-                                    alt=""
-                                />
-                                {showProfile && (
-                                    <div
-                                        className={` ${
-                                            !showProfile
-                                                ? 'invisible opacity-0'
-                                                : 'visible opacity-100'
-                                        }  absolute bottom-[-101px] flex   flex-col  transition-all lg:left-20`}
-                                        onMouseLeave={() =>
-                                            setShowProfile(false)
-                                        }
-                                    >
-                                        <Link
-                                            to={`/profile/${currentUser.id}`}
-                                            className="mb-1 rounded-md bg-[#97928f4d] px-10 py-2  transition-colors  hover:bg-[#97928f8a]"
-                                        >
-                                            Profile
-                                        </Link>
+            >
+              <Link href="/bascket" className=" text-xl">
+                <FaCartArrowDown />
+              </Link>
+              <FaRegBell className="hidden cursor-pointer text-2xl lg:block" />
+              <FaRegMessage className="hidden cursor-pointer text-2xl lg:block" />
+              <Link
+                href="#"
+                className="cursor-pointer rounded-lg border px-5 py-1"
+              >
+                Wallet
+              </Link>
+              <span
+                className="flex cursor-pointer items-center gap-3"
+                onClick={() => setShowProfile(!showProfile)}
+              >
+                <IoIosArrowDown />
+                <img
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  className="h-10 w-10 rounded-full   bg-black"
+                  alt=""
+                />
+                {showProfile && (
+                  <div
+                    className={` ${
+                      !showProfile
+                        ? "invisible opacity-0"
+                        : "visible opacity-100"
+                    }  absolute bottom-[-101px] flex   flex-col  transition-all lg:left-20`}
+                    onMouseLeave={() => setShowProfile(false)}
+                  >
+                    <Link
+                      href={`/profile/${currentUser.id}`}
+                      className="mb-1 rounded-md bg-[#97928f4d] px-10 py-2  transition-colors  hover:bg-[#97928f8a]"
+                    >
+                      Profile
+                    </Link>
 
-                                        <Link
-                                            onClick={logout}
-                                            className="rounded-md bg-[#97928f4d] px-10 py-2 transition-colors hover:bg-[#97928f8a]"
-                                        >
-                                            Logout
-                                        </Link>
-                                    </div>
-                                )}
-                            </span>
-                        </div>
-                    )}
-                    {!currentUser && (
-                        <div className="profile flex  items-center gap-1 text-white lg:gap-3">
-                            <Link
-                                to={'/signup'}
-                                className="cursor-pointer rounded-lg border px-5 py-1"
-                            >
-                                Login
-                            </Link>
-                            <Link
-                                to={'signin'}
-                                className="cursor-pointer rounded-lg border px-5 py-1"
-                            >
-                                SignIn
-                            </Link>
-                        </div>
-                    )} */}
+                    <Link
+                      href="/home"
+                      onClick={() => {
+                        userLogout.mutate();
+                      }}
+                      className="rounded-md bg-[#97928f4d] px-10 py-2 transition-colors hover:bg-[#97928f8a]"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                )}
+              </span>
+            </div>
+          )}
+          {!currentUser && (
+            <div className="profile flex  items-center gap-1 text-white lg:gap-3">
+              <Link
+                href={"/signUp"}
+                className="cursor-pointer rounded-lg border px-5 py-1"
+              >
+                Register
+              </Link>
+              <Link
+                href={"signIn"}
+                className="cursor-pointer rounded-lg border px-5 py-1"
+              >
+                SignIn
+              </Link>
+            </div>
+          )}
           <HiMiniBars3BottomRight
-            // onClick={() => setShowNav(!showNav)}
+            onClick={() => setShowNav(!showNav)}
             className="   cursor-pointer text-xl  lg:hidden"
           />
         </div>

@@ -2,11 +2,13 @@
 import React, { useContext, useRef, useState } from "react";
 import signin from "../../assets/signin.png";
 import { useRouter } from "next/navigation";
-import logo from "../../assets/logo/log.png";
+import Logo from "../../assets/login/signin.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase_auth";
 import { userLogin, userSigninWithGoogle } from "../utils/userQueries/user";
 import RootLayout from "../layout";
+import Image from "next/image";
+import { Toaster, toast } from "sonner";
 
 const Signin: React.FC = () => {
   const router = useRouter();
@@ -31,7 +33,7 @@ const Signin: React.FC = () => {
       };
       console.log(userData);
       googleSignIn.mutate({ role, user: userData });
-      router.push("/");
+      router.push("/home");
     } catch (error) {
       console.error(error);
     }
@@ -39,11 +41,8 @@ const Signin: React.FC = () => {
 
   return (
     <div className=" flex h-screen flex-col items-center justify-center lg:flex-row  ">
-      <div>
-        <img className="h-[400px] " src="" />
-        {/* <img className="w-[300px]" src={logo} /> */}
-      </div>
-
+      <div className="flex items-center justify-center">
+        <img className="w-[600px] h-[700px]" src="https://cdn.discordapp.com/attachments/1186338542385905741/1189156894141591662/output-onlinegiftools_1.gif?ex=659d23a9&is=658aaea9&hm=10df4f643aef12ac49809ed72f4b9bb430f4634d4151eed18df98ea5fa58ef27&" alt="" />
       <div className=" ml-10 h-fit  w-fit flex-col rounded-[10px] bg-white bg-opacity-20 p-5">
         <div className="font-['SF  Pro Display'] p-6 text-center text-3xl font-extrabold tracking-tight text-gray-600">
           Sign In
@@ -56,20 +55,20 @@ const Signin: React.FC = () => {
             {" "}
           </span>
           <span
-            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709]"
+            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709] cursor-pointer"
             onClick={() => {
-              setRole("creator");
+              setRole("creator"), toast.success("You are a Creator Now ! "); 
             }}
           >
-            Yes
+            Yes 
           </span>
           <span
-            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709]"
+            className="font-['SF Pro Display'] text-lg font-medium tracking-tight text-[#733709] cursor-pointer"
             onClick={() => {
-              setRole("user");
+              setRole("user"), toast.success("You are a User Now ! ");
             }}
           >
-            /No
+            /No <Toaster richColors />
           </span>
         </div>
 
@@ -244,6 +243,8 @@ const Signin: React.FC = () => {
         </div>
         <div className="mt-5"></div>
       </div>
+      </div>
+
     </div>
   );
 };

@@ -50,7 +50,7 @@ const Footer = () => {
             <div className="w-full sm:w-3/3 lg:w-3/12">
               <div className="mb-10 w-full">
                 <a href="/#" className="mb-6 inline-block w-[140px]">
-                  <img src="" alt="logo" className="max-w-full dark:hidden" />
+                  <img src="https://cdn.discordapp.com/attachments/1186338542385905741/1189161860340125716/image_2023-12-26_120421044-removebg-preview.png?ex=659d2849&is=658ab349&hm=ee1a0539e858af5791682e405f44dcb8f89e03a809cb560f8bfd1f5ce5f4456c&" alt="logo" className="max-w-full dark:hidden" />
                 </a>
                 <p className="flex items-center text-sm font-medium text-dark dark:text-white">
                   <span className="mr-3 text-primary">

@@ -1,29 +1,37 @@
+"use client";
 import React from "react";
-// import Bohmid from "../../assets/AdminsPic/Bohmid.png"
-import ElCoach from "../../../assets/Admins/ElCoach.png"
-// import Maryem from "../../assets/AdminsPic/Maryem.png"
-import Aziza from "../../../assets/Admins/Aziza.png"
+import { button } from "@material-tailwind/react";
 import Image from "next/image";
+import Bolbol from "../../../assets/Admins/Bolbol.png";
+import ElCoach from "../../../assets/Admins/ElCoach.png";
+import Ameur from "../../../assets/Admins/Ameur.png";
+import Aziza from "../../../assets/Admins/Aziza.png";
+
 const teamMembers = [
+  // {
+  //   name: "Ameur Khoidja",
+  //   image: Ameur,
+  //   role: "Scram Master",
+  // },
   {
     name: "Aziza Ben Halima",
-    image: "",
+    image: Aziza,
     role: "Co Founder",
   },
   {
-    name: "Maryem Harmessi",
-    image: "",
+    name: "Bilel Bourgou",
+    image: Bolbol,
     role: "Co Founder",
   },
   {
     name: "Maamoun Bouaouina",
-    image: "",
+    image: ElCoach,
     role: "Co Founder",
   },
   {
-    name: "Ahmed Haddada",
+    name: "モハメド・ハッサン・ブーレル",
     image: "",
-    role: "Co Founder",
+    role: "",
   },
 ];
 
@@ -196,13 +204,24 @@ function firstDesc() {
         <div className="text-center text-white text-4xl md:text-6xl font-extrabold font-sans leading-10 md:leading-14 tracking-wide">
           Our Makers
         </div>
-        <div className="text-center text-slate-900 text-opacity-50 text-lg md:text-xl font-medium font-sans leading-7 md:leading-9 mt-8">
+        <div className="text-center text-slate-900 text-opacity-50 text-lg md:text-xl font-medium font-sans leading-7 md:leading-9 mt-8 ">
           Our community at <strong> FancyMama</strong> is a diverse tapestry of
           trendsetters and fashion enthusiasts. Whether you're a creator shaping
           the scene or a discerning shopper, our members form the core of a
           shared love for style and luxury. Join us in the celebration of
           individuality and expression at FancyMama, where every member
           contributes to the vibrant world of fashion.
+        </div>
+        <div className="flex justify-center items-center flex-col ">
+          <Image src={Ameur} className="h-72 md:h-96 rounded mb-2 w-[300px]" alt=""/>
+          <div className="text-center text-slate-600 text-xl md:text-2xl font-semibold font-sans tracking-wide mb-1 italic">
+            Ameur Khoidja
+          </div>
+          <div className="w-32 h-9 p-2.5 bg-[#73370996] bg-opacity-20 rounded-full justify-center items-center gap-2.5 inline-flex">
+            <div className=" text-[#fffafadf] text-base md:text-lg font-meduim font-serif tracking-tight">
+              Scram Master
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2  justify-items-center gap-4 md:gap-8 lg:gap-12 mt-4 md:mt-8 lg:mt-12">
@@ -211,7 +230,7 @@ function firstDesc() {
               key={index}
               className="relative w-[320px] flex flex-wrap flex-col items-center"
             >
-              <img
+              <Image
                 className="h-72 md:h-96 rounded mb-2 w-[300px]"
                 src={member.image}
                 alt={member.name}
@@ -235,7 +254,7 @@ function firstDesc() {
 const About = () => {
   return (
     <>
-      <div className="px-16">{firstDesc()}</div>
+      <div className="px-[10rem] pt-[8rem]">{firstDesc()}</div>
     </>
   );
 };
