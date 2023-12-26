@@ -113,12 +113,28 @@ export const updateBg=async ( req: Request,res: Response)=>{
 export const updatePf=async (req: Request,res: Response)=>{
   const { id } = req.params;
  const {pfImage}= req.body;
- const newUpdate = await prisma.creator.update({
+ try {const newUpdate = await prisma.creator.update({
   where: { id: +id },
   data: {
     pfImage: pfImage,
     
   },
-});
 
+});
+res.status(200).send('done')
+}catch(err){res.status(500).send({error:err})}
+}
+export const searchCreator= async (req: Request,res: Response)=>{
+
+  const {name}=req.params
+  try{
+  const creator=await prisma.creator.findMany({
+    where: { fullName: name },
+   
+  });
+res.status(200).send(searchCreator)}
+  catch(err){
+    res.status(500).send(err)
+
+  }
 }
