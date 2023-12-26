@@ -41,12 +41,12 @@ export const addFav = async (req: Request, res: Response) => {
 };
 
 export const removeFav = async (req: Request, res: Response): Promise<void> => {
-  const iditem: number = +req.params.iditem; // Assuming iditem is a string
-  const iduser: number = +req.params.iduser; // Assuming iduser is a string
+  const idUser: number = +req.params.iduser; 
+  const idItem: number = +req.params.iditem; 
 
   try {
     const deleted = await prisma.favorite.deleteMany({
-      where: { itemId: iditem, userId: iduser },
+      where: {  userId: idUser, itemId: idItem },
     });
 
     res.status(200).send("Favorite item removed successfully");
@@ -54,3 +54,6 @@ export const removeFav = async (req: Request, res: Response): Promise<void> => {
     res.status(400).send({ error: err as Error });
   }
 };
+
+
+

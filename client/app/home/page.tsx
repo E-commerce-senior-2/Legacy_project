@@ -1,6 +1,10 @@
-"use client";
 
-import React, { useState, useRef } from "react";
+'use client'
+
+import React, { useState } from "react";
+
+
+
 import Valentino from "../../assets/brands/Valentino.png";
 import Dior from "../../assets/brands/Dior-Logo.png";
 import Chanel from "../../assets/brands/Channel-Logo.png";
@@ -20,6 +24,7 @@ import { Toaster, toast } from "sonner";
 import { getCreators } from "../utils/followingCreators/followingCreators";
 import { getBrands } from "../utils/followingBrands/FollowingBrands";
 import Image from "next/image";
+        
 
 const brands = [
   {
