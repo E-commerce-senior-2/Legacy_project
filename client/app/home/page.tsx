@@ -21,7 +21,7 @@ import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
-import { getCreators } from "../utils/followingCreators/followingCreators";
+import { getCreators } from "../utils/followingCreators/FollowingCreators";
 import { getBrands } from "../utils/followingBrands/FollowingBrands";
 import Image from "next/image";
         
