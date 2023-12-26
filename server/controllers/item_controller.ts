@@ -99,7 +99,7 @@ const getOneItem = async (req: Request, res: Response) => {
   let id: number = +collectiondId;
   try {
     const result = await prisma.item.findFirst({
-      where: { collectionId: id, name: name },
+      where: { name: name },
     });
     if (!!result) {
       res.status(200).send(result);

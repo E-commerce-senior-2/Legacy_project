@@ -1,48 +1,28 @@
-'use client'
-import axios from "axios";
+"use client";
 
-import { useMutation ,useQueryClient,useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import { MdDelete } from "react-icons/md";
-import { useContext } from "react";
+import { deleteItem ,fetchData } from "@/app/utils/my favorite/favorite";
+export const MyFavorite = () => {
+  const currentUserString = window.localStorage.getItem("currentUser") || "";
+  const user = JSON.parse(currentUserString);
 
-
-import { deleteItem, fetchData } from "../utils/userQueries/my favorite/myfaverte";
-
-
-const MyFavorite = () => {
-  // const { currentUser } = useContext(UserContext);
-  // const id = currentUser.id;
-
-  const { data: favorite, isLoading, isError } = id
-  ? fetchData(id)
-  : { data: null, isLoading: false, isError: false };
-  const queryClient = useQueryClient();
-  console.log(queryClient);
-  
-
-  const deleteItemMutation = useMutation({
-    mutationFn: (itemId: string) => deleteItem(itemId, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey : ["favoriteItems"]});
-    },
+  const { data, isLoading } = useQuery({
+    queryKey: ["fetchData", user.id],
+    queryFn: () => fetchData(user.id),
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handledeletefavoirelist = deleteItem();
 
-  if (isError) {
-    return <div>Error: </div>;
-  }
-
+  if (isLoading) return <p>Loading...</p>;
   return (
     <div className="mb-6 flex justify-center items-center flex-col">
       <h1 className="flex justify-center font-bold text-Liver text-3xl mb-2">
         Your favorite items
       </h1>
       <div className="grid min-h-screen w-full p-10 justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center bg-PaleDogwood leading-3 md:grid-cols-2">
-        {favorite &&
-          favorite.map((item:any) => (
+        {data &&
+          data.map((item: any) => (
             <div
               key={item.id}
               className="max-w-xs cursor-pointer rounded-lg bg-Liver p-4 shadow duration-150 hover:scale-105 hover:shadow-md"
@@ -64,10 +44,17 @@ const MyFavorite = () => {
 
                 <div className="my-4 flex items-center justify-between px-4">
                   <p className="text-sm font-semibold text-gray-500">Delete</p>
-                  <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
+                  <p className="rounded-full bg-gray-200  hover:bg-red-500 px-2 py-0.5 text-xs font-semibold text-gray-600">
+
                     <MdDelete
                       className="text-xl w-8"
-                      onClick={() => deleteItemMutation.mutate(item.id)}
+                      onClick={() => {
+                        handledeletefavoirelist.mutate({
+                          itemId: item.id,
+                          userId: user.id,
+                        });
+                        window.location.reload();
+                      }}
                     />
                   </p>
                 </div>

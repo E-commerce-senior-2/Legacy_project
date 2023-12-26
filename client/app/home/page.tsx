@@ -1,6 +1,10 @@
-"use client";
 
-import React, { useState, useRef } from "react";
+'use client'
+
+import React, { useState } from "react";
+
+
+
 import Valentino from "../../assets/brands/Valentino.png";
 import Dior from "../../assets/brands/Dior-Logo.png";
 import Chanel from "../../assets/brands/Channel-Logo.png";
@@ -17,9 +21,10 @@ import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
-import { getCreators } from "../utils/followingCreators/followingCreators";
+import { getCreators } from "../utils/followingCreators/FollowingCreators";
 import { getBrands } from "../utils/followingBrands/FollowingBrands";
 import Image from "next/image";
+        
 
 const brands = [
   {

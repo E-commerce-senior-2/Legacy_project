@@ -7,19 +7,13 @@ const prisma = new PrismaClient()
 
 
 
-export const createUser = async (req: Request, res: Response) :Promise<void> =>{
-  const {fullName,userName,password,email,dateBirth} = req.body
+export const getUser = async (req: Request, res: Response)  =>{
+  const {id} = req.params
   try {
-    const user = await prisma.user.create({
-      data: {
-        fullName,
-        userName,
-        password,
-        email,
-        dateBirth
-      }
+    const user = await prisma.user.findUnique({
+      where : {id : +id}
     })
-    res.status(201).json(user)
+    res.status(200).send(user)
   }catch(err) {
     res.status(400).json({error: err})
   }
