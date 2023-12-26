@@ -63,7 +63,7 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
                         </p>
                     </div>
                 </div>
-                <div className="image" onClick={() => setIsOpen(true)}>
+                <div className="image hover:cursor-crosshair" onClick={() => setIsOpen(true)}>
                     {isOpen && (
                     <Lightbox 
                     mainSrc={data.image[photoIndex]}
@@ -89,11 +89,11 @@ function Productdetails({params}: {params : {collectionId : number , name : stri
                     />
                 </div>
                 <div className="by flex flex-col gap-3">
-                    <button className="flex items-center gap-2 bg-VanDyke px-20 py-4 font-medium text-white hover:font-semibold">
+                    <button className="flex items-center gap-2 hover:cursor-pointer bg-VanDyke px-20 py-4 font-medium text-white hover:font-semibold" onClick={() =>{ addToBasket(), toast.success("added to basket")}}>
                         ADD TO CART
                         <BsBag className="text-xl" />
                     </button>
-                    <div className="flex h-14 items-center hover:cursor-pointer gap-2 border border-black px-20 font-medium hover:font-semibold" onClick={() =>{ addToBasket(), toast.success("added to basket")}}>
+                    <div className="flex h-14 items-center  gap-2 border border-black px-20 font-medium hover:font-semibold" >
                         BUY WITH <Toaster richColors/>
                         <img
                             className="w-16 "

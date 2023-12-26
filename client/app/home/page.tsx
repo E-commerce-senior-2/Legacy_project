@@ -14,18 +14,16 @@ import Prada from "../../assets/brands/Prada.png";
 import { GrTransaction } from "react-icons/gr";
 import { BsHandbag } from "react-icons/bs";
 import { PiDressDuotone } from "react-icons/pi";
-// import Product from "../pages/LayoutExplore/AllProducts"
 import axios from "axios";
-// import { useSpring, animated, config } from "react-spring";
 import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { Toaster, toast } from "sonner";
 import { getCreators } from "../utils/followingCreators/FollowingCreators";
 import { getBrands } from "../utils/followingBrands/FollowingBrands";
+import ItemHome from "../components/ItemsHome"
 import Image from "next/image";
-        
-
+import { useQuery } from "@tanstack/react-query";
 const brands = [
   {
     pic: Valentino,
@@ -47,121 +45,26 @@ const brands = [
   },
 ];
 
-// const allCollection = () => {
-//   const [items, setItems] = useState([]);
-//   const getItems = async () => {
-//     try {
-//       let result = await axios.get(`http://localhost:8080/items`);
-//       // console.log(result.data);
-//       setItems(result.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-//   useEffect(() => {
-//     getItems();
-//   }, []);
-//   return (
-//     <div>
-//       <div className="grid grid-cols-1 gap-2 pt-16 md:grid-cols-2 xl:grid-cols-3">
-//         {items.map((item, i) => (
-//           <Item key={item.collectionId} {...item} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
+const allCollection = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["allItems"],
+    queryFn: async () => {
+      return await axios
+        .get(`http://localhost:3001/items`)
+        .then((response) => response.data);
+    },
+  });
+  if (isLoading) <h1> is Loading</h1>;
+  if (isError) <h1>is Error</h1>;
 
-// const itemIncomming = () => {
-//   const [items, setItems] = useState([]);
-//   const getItems = async () => {
-//     try {
-//       let result = await axios.get(`http://localhost:8080/items`);
-//       // console.log(result.data);
-//       setItems(result.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-//   useEffect(() => {
-//     getItems();
-//   }, []);
-
-//   return (
-//     <div>
-//       <div className="flex flex-col lg-flex-row justify-center items-center mt-20 text-5 text-center">
-//         <h1 className="text-[#734532] text-3xl font-bold font-['Poppins'] mb-3">
-//           New && Trending
-//         </h1>
-//         <p className="flex flex-col  text-slate-600 m-6 text-[#3b3b3b] w-[600px]">
-//           {" "}
-//           Discover unparalleled style with our latest and trending products,
-//           where innovation meets elegance in every piece.
-//         </p>
-//       </div>
-//       <div className="grid grid-cols-1 gap-2 pt-16 md:grid-cols-2 xl:grid-cols-3">
-//         {items.map(
-//           (item, i) => i < 3 && <Item key={item.collectionId} {...item} />
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Item = ({ collectionId, status, gender, name, price, image }) => {
-//   const [like, setLike] = useState(false);
-//   const [likeAnimation, setLikeAnimation] = useState(false);
-//   useEffect(() => {
-//     const timeoutId = setTimeout(() => {
-//       setLikeAnimation(false);
-//     }, 1000);
-
-//     return () => clearTimeout(timeoutId);
-//   }, [likeAnimation]);
-
-//   const slideIn = useSpring({
-//     opacity: 1,
-//     transform: "translateY(0)",
-//     from: { opacity: 0, transform: "translateY(50px)" },
-//     config: config.wobbly,
-//     reset: true,
-//   });
-
-//   return (
-//     <animated.div
-//       style={slideIn}
-//       className="item-box relative flex flex-col items-center justify-start rounded-md border border-gray-300 bg-[#ffffff7c] p-4 font-medium shadow-md"
-//     >
-//       <Link to={`/${collectionId}/${name.replaceAll(" ", "-")}`}>
-//         <img
-//           src={image}
-//           className="item-image m-auto h-[200px] w-fit self-center transition-all hover:scale-125"
-//           alt=""
-//         />
-//         <div className="item-info mt-3 flex justify-start gap-7 font-normal">
-//           <p className="tracking-widest">{status}</p>
-//           <p>{gender}</p>
-//         </div>
-//         <div className="item-description mt-3 self-start">
-//           <p className="item-name">{name}</p>
-//           <p className="item-price mt-3 text-lg">$ {price}</p>
-//         </div>
-//       </Link>
-
-//       <FaHeart
-//         className={`heart-icon ${like ? "text-red-500 " : ""} ${
-//           likeAnimation
-//             ? "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-150 transform transition-all"
-//             : "relative self-end"
-//         } cursor-pointer text-3xl`}
-//         onClick={() => {
-//           setLike(!like);
-//           setLikeAnimation(!likeAnimation);
-//         }}
-//       />
-//     </animated.div>
-//   );
-// };
+  return (
+    <div className="grid grid-cols-1 gap-2 pt-16 md:grid-cols-2 xl:grid-cols-3">
+      {data?.map((item: any,i:any) => (
+       i < 3 && <ItemHome key={data.collectionId} {...item} />
+      ))}
+    </div>
+  );
+};
 
 const UpCommingCreators = () => {
   const { data, isLoading, isError } = getCreators();
@@ -180,7 +83,6 @@ const UpCommingCreators = () => {
       </div>
       <div className="grid grid-cols-3 lg:grid-row mb-12 gap-10  w-full">
         {data?.map((artists: any) => {
-          console.log({ ...artists }, "data");
           return <CardCreator key={artists.id} {...artists} />;
         })}
       </div>
@@ -192,8 +94,6 @@ const CardCreator = ({ id, fullName, pfImage, bgImage, bio, status }: any) => {
   const currentUserString = window.localStorage.getItem("currentUser");
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
   const [follow, setFollow] = useState(false);
-
-
 
   // // Add New Follower from the Creator:
   const newFollower = async (idCreator: string) => {
@@ -294,21 +194,17 @@ const CardCreator = ({ id, fullName, pfImage, bgImage, bio, status }: any) => {
               Follow <Toaster richColors />
             </button>
           )}
-          {follow && ( 
-
-            <button 
+          {follow && (
+            <button
               onClick={() => {
                 window.confirm(`Are you sure to unfollow ${fullName}`),
-                removeFollow(id),
-                setFollow(false);
-                
-                
+                  removeFollow(id),
+                  setFollow(false);
               }}
               className="w-1/2 block mx-auto rounded-full bg-[#09080876] hover:shadow-lg font-semibold text-white px-6 py-2"
-              >
+            >
               Unfollow
             </button>
-
           )}
         </div>
       </div>
@@ -345,6 +241,7 @@ const CardBrands = ({ id, brandName, brandImage, bgImage, status }: any) => {
   const [follow, setFollow] = useState(false);
   const currentUserString = window.localStorage.getItem("currentUser");
   const currentUser = currentUserString ? JSON.parse(currentUserString) : null;
+
   // Add New Follower to the Brand:
   const newFollowBrand = async (idBrand: string) => {
     try {
@@ -461,7 +358,7 @@ const CardBrands = ({ id, brandName, brandImage, bgImage, status }: any) => {
   );
 };
 
-const Quetions = () => {
+const Questions = () => {
   const allLabels = [
     {
       oneLabel: "Describe Your Experience",
@@ -490,7 +387,7 @@ const Quetions = () => {
     <div className="flex flex-col lg-flex-row justify-center items-center">
       <h1 className="text-[#734532] font-['Poppins'] mb-3 mt-20 text-4xl font-extrabold text-center">
         Frequently Asked <br />
-        Quetion{" "}
+        Question{" "}
       </h1>
       <p className="text-[#3b3b3b] m-6 text-center w-[600px]">
         Get the answers you need quickly and effortlessly with our Frequently
@@ -552,9 +449,9 @@ const InputQuetions: React.FC<LabelProps> = ({ oneLabel }) => {
 
 const Home = () => {
   return (
-    <div>
+    <div className="px-[10rem]">
       <div className="flex flex-col lg:flex-row items-center justify-around mt-20 ">
-        <Link href={"/explore/allProducts"}>
+        <Link href={"/home/Items"}>
           <button className="w-60 h-12  bg-[#382e29] rounded-lg justify-center items-center text-white text-xl font-medium ">
             Main Collection
           </button>
@@ -564,8 +461,8 @@ const Home = () => {
         </button>
       </div>
 
-      <div className=" h-screen flex flex-col lg:flex-row gap-35 justify-around items-center w-1/2 ">
-        <div>
+      <div className=" h-screen flex flex-col  lg:flex-row gap-[10rem] justify-around items-center w-1/2 ">
+        <div className="mt-[-14rem]">
           <h1 className="text-[#705650db] text-6xl font-extrabold font-['SF Pro Display'] text-center">
             FancyMama
           </h1>
@@ -582,7 +479,7 @@ const Home = () => {
             <button className=" w-40 h-12 bg-gradient-to-bl bg-[#382e29] rounded-lg justify-center items-center gap-2.3 inline-flex text-white text-xl font-medium font-['Poppins']">
               Explore Now
             </button>
-            <Link href={"/explore/allProducts"}>
+            <Link href={"/home/Items"}>
               <button className="text-white text-xl font-medium font-['Poppins'] w-28 h-12 px-5 py-2.5 left-[181px] top-0  bg-[#70565099] rounded-lg justify-center items-center gap-2.5 inline-flex">
                 Products
               </button>
@@ -774,13 +671,11 @@ const Home = () => {
           Live Shows
         </button>
       </div>
-
-      {/* {allCollection()} */}
-      {/* {itemIncomming()} */}
-
+      
+      {allCollection()}
       {UpCommingCreators()}
       {UpCommingBrands()}
-      {Quetions()}
+      {Questions()}
     </div>
   );
 };

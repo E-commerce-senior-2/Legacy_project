@@ -55,7 +55,7 @@ const Profile = ({ params }: { params: { id: number } }) => {
                             className="bg-container  md: md: h-[355px] w-[1040px] rounded-[5px] bg-Liver bg-opacity-10 brightness-50"
                             src={creator?.bgImage.toString() || ''} alt=''
                         />
-                        {currentUser?.id===creator?.id && <div
+                        {currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName &&<div
                             ref={editProfileRef}
                             onClick={() => {
                                 setChange('bgimage')
@@ -68,14 +68,14 @@ const Profile = ({ params }: { params: { id: number } }) => {
                     </div>
 
                     <div className="relative top-[-70px] flex flex-col items-center justify-center">
-                        <Image
+                        <img
                             className="  bottom-[-40px] h-[120px] w-[120px] rounded-full border-2 border-white"
                             src={creator?.pfImage.toString() || ''} alt=''
                             width={10}
                             height={10}
                         />
 
-                        {currentUser?.id===creator?.id &&<div
+                        {currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <div
                             ref={editProfileRef}
                             onClick={() => {
                                 setChange('pfimage')
@@ -90,7 +90,7 @@ const Profile = ({ params }: { params: { id: number } }) => {
                         {creator?.fullName || ''}
                     </p>
 
-                  { currentUser?.id===creator?.id && <div
+                  { currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <div
                         ref={editProfileRef}
                         data-profile="profile"
                         onClick={() => {
@@ -119,7 +119,7 @@ const Profile = ({ params }: { params: { id: number } }) => {
                         />
                     )}
                 </div>
-              { currentUser?.id===creator?.id && <IoIosAddCircleOutline
+              { currentUser?.id===creator?.id && currentUser.fullName===creator?.fullName && <IoIosAddCircleOutline
                     onClick={() => {
                         setChange('post')
                         setView(!view)

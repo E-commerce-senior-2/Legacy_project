@@ -586,7 +586,7 @@ const Home = () => {
           <button className=" w-40 h-12 bg-gradient-to-bl bg-[#382e29] rounded-lg justify-center items-center gap-2.3 inline-flex text-white text-xl font-medium font-['Poppins']">
             Explore Now
           </button>
-          <Link href={"/explore/allProducts"}>
+          <Link href={"/home/Items"}>
             <button className="text-white text-xl font-medium font-['Poppins'] w-28 h-12 px-5 py-2.5 left-[181px] top-0  bg-[#70565099] rounded-lg justify-center items-center gap-2.5 inline-flex">
               Products
             </button>

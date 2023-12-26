@@ -143,13 +143,13 @@ export function addLike(){
   });
   return query;
 }
-export function searchCreator(name: string) {
+export function searchCreator(name: string | undefined) {
   const query = useQuery<Creator>({
     queryKey: ["search",name],
     queryFn: async () => {
       const result = await axios.get(`http://localhost:3001/creators/searchCreator/${name}`);
       console.log(result.data)
-      return result.data
+      return result.data[0]
     },
     select: (data) => data
 

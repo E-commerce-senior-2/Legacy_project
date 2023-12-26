@@ -2,7 +2,7 @@
 import axios from 'axios'
 import React, { useState, KeyboardEvent, useRef } from 'react'
 import { GoTrash } from "react-icons/go";
-import { addLike, commentPost, deletePosts } from '../utils/profile/profile';
+import { addLike, commentPost, deletePosts,getComment } from '../utils/profile/profile';
 import { AiOutlineLike } from "react-icons/ai";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdPublish } from "react-icons/md";
@@ -12,6 +12,10 @@ interface Posts {
     posts: Post[] | null | undefined;
     creator: Creator | null | undefined;
 }
+const date = new Date()
+let day = date.getDate()
+let month = date.getMonth() +1
+let year = date.getFullYear()
 
 const Posts: React.FC<Posts> = ({ posts, creator }) => {
     const currentUserString = window.localStorage.getItem('currentUser') || "{}"
@@ -23,7 +27,10 @@ const Posts: React.FC<Posts> = ({ posts, creator }) => {
 
     const comment = useRef<HTMLInputElement>(null)
     const addLikes = addLike()
-    console.log(currentUser)
+    function getcomment(id:number){
+        const { data: commen, isLoading: CommentLoading, isError: CommentError } = getComment(id)
+        return commen
+    }
     return posts?.map((post) => {
         return (
 
@@ -41,7 +48,7 @@ const Posts: React.FC<Posts> = ({ posts, creator }) => {
                                 }}
                             /></small>
                         </div>
-                        <p className="text-gray-700">Joined 12 SEP 2012. </p>
+                        <p className="text-gray-700">{`${day}-${month}-${year}`} </p>
                         <p className="mt-3 text-gray-700 text-sm">
                             {post.status}
                         </p>
@@ -68,7 +75,7 @@ const Posts: React.FC<Posts> = ({ posts, creator }) => {
                                 <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                                 </svg>
-                                <span >8</span>
+                                <span >{ getcomment(post.id)?.length }</span>
                             </div>
                             <div className="flex text-gray-700 text-sm mr-4">
                                 <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">

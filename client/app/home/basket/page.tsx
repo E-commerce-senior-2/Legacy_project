@@ -63,7 +63,7 @@ const Basket = () => {
     // Calculate total price when data changes
     if (data) {
       const newTotalPrice = itemRepetion.reduce(
-        (total, item) => total + item.item.item.price * item.quantity,
+        (total, item:any) => total + item.item.item.price * item.quantity,
         0
       );
       setTotalPrice(newTotalPrice);
@@ -102,7 +102,7 @@ const Basket = () => {
                         <div className="flex items-center">
                           <img
                             className="h-16 w-16 mr-4"
-                            src={item.item.item.image}
+                            src={item.item.item.image[0]}
                             alt="Product image"
                           />
                           <span className="font-semibold">
@@ -186,9 +186,9 @@ const Basket = () => {
                 <span className="font-semibold">Total</span>
                 <span className="font-semibold">${(totalPrice+1.99).toFixed(2)}</span>
               </div>
-              <button className="bg-orange-300 text-white py-2 px-4 rounded-lg mt-4 w-full">
+              <a href="https://buy.stripe.com/test_aEUdRi5g35pw86IaEE" className="bg-orange-300 text-white py-2 px-4 rounded-lg mt-4 w-full">
                 Checkout
-              </button>
+              </a>
             </div>
           </div>
         </div>

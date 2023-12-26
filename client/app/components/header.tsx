@@ -8,8 +8,11 @@ import { FaRegMessage } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { FaRegBell } from "react-icons/fa6";
+import { searchCreator } from "../utils/profile/profile";
 import Link from "next/link";
 import { logout } from "../utils/userQueries/user";
+import { useRouter } from "next/navigation";
+
 // import { MyContext } from '../../MyContext.jsx'
 function Header() {
   // const location = useLocation()
@@ -17,12 +20,14 @@ function Header() {
   const [showExploreNav, setShowExploreNav] = useState(false);
   const [showMoreNav, setShowMoreNav] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [search, setSearch] = useState(false);
+  const route = useRouter();
+  let query = useRef<HTMLInputElement>(null);
   const currentUserString = localStorage.getItem("currentUser") || "";
   let currentUser: any;
   currentUserString ? (currentUser = JSON.parse(currentUserString)) : null;
   const userLogout = logout();
-  // const { setInputFilter } = useContext(MyContext)
-
+  const { data, isLoading, isError } = searchCreator(query.current?.value);
   return (
     <header
       className="relative z-30    bg-[#97928f4d] "
@@ -39,16 +44,41 @@ function Header() {
             </Link>
           </div>
 
-          <form className="bg-transparent border  rounded-full p-2 flex items-center">
-            <input
-              type="text"
-              placeholder="Search For Creators..."
-              className="bg-transparent text-white focus:outline-none w-30 sm:w-64 "
-            />
-            <button>
-              <FaSearch className="text-white" />
-            </button>
-          </form>
+          <div>
+            <form className="bg-transparent border  rounded-full p-2 flex items-center">
+              <input
+                type="text"
+                placeholder="Search For Creators..."
+                ref={query}
+                className="bg-transparent text-white focus:outline-none w-30 sm:w-64 "
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault(), setSearch(!search);
+                }}
+              >
+                <FaSearch className="text-white" />
+              </button>
+            </form>
+            {search && (
+              <div
+                className="w-30 sm:w-66 h-12 bg bg-white hover:cursor-pointer rounded-full mt-2 flex justify-center items-center gap-3   bg-opacity-30"
+                onClick={() => {
+                  route.push(`/home/profile/${data?.id}`),
+                  setSearch(false);
+                  query.current.value=null;
+                }}
+              >
+                <img
+                  className=" w-8 h-8 rounded-full"
+                  src={data?.pfImage}
+                  alt=""
+                  loading="lazy"
+                />
+                {data?.fullName}{" "}
+              </div>
+            )}
+          </div>
           <ul
             className={`links transition-max-height items-start overflow-hidden duration-300 ${
               showNav
@@ -78,7 +108,7 @@ function Header() {
                 } transition-all`}
               >
                 <li className="w-screen border-b bg-[#97928f4d] py-2 pl-5 transition-all hover:bg-[#4e4a4744] hover:pl-5 lg:mt-1">
-                  <Link href="/home/items">All Products</Link>
+                  <Link href="/home/Items">All Products</Link>
                 </li>
                 <li className="w-screen border-b bg-[#97928f4d] py-2 pl-5 transition-all hover:bg-[#4e4a4744] hover:pl-5">
                   <Link href="/home/AllProfiles">All creators</Link>
@@ -141,7 +171,7 @@ function Header() {
               >
                 <IoIosArrowDown />
                 <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  src={currentUser.pfImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
                   className="h-10 w-10 rounded-full   bg-black"
                   alt=""
                 />

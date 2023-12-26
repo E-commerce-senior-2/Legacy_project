@@ -16,11 +16,11 @@ export const MyFavorite = () => {
 
   if (isLoading) return <p>Loading...</p>;
   return (
-    <div className="mb-6 flex justify-center items-center flex-col">
-      <h1 className="flex justify-center font-bold text-Liver text-3xl mb-2">
+    <div className="mb-6 flex justify-center items-center flex-col pt-[5rem]">
+      <h1 className="flex justify-center font-bold text-Liver text-3xl ">
         Your favorite items
       </h1>
-      <div className="grid min-h-screen w-full p-10 justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center bg-PaleDogwood leading-3 md:grid-cols-2">
+      <div className="grid min-h-screen w-full p-10 justify-items-center gap-6 grid-cols-1 lg:grid-cols-3 flex-wrap items-center justify-center leading-3 md:grid-cols-2">
         {data &&
           data.map((item: any) => (
             <div
@@ -28,7 +28,7 @@ export const MyFavorite = () => {
               className="max-w-xs cursor-pointer rounded-lg bg-Liver p-4 shadow duration-150 hover:scale-105 hover:shadow-md"
             >
               <img
-                src={item.image}
+                src={item.image[0]}
                 className="item-image m-auto h-[200px] w-fit self-center transition-all hover:scale-125"
                 alt=""
               />
