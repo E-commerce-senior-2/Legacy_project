@@ -20,9 +20,7 @@ const resetPassword = ({ params }: any) => {
         token: params.token,
         password: newPassword.current?.value,
       });
-      if (updatePwd.isSuccess) {
-        router.push("/signIn");
-      }
+      router.push('/signIn')
     }
   };
 

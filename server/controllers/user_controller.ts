@@ -19,12 +19,3 @@ export const getUser = async (req: Request, res: Response)  =>{
   }
 }
 
-// async function createUser(req,res) {
-//   const {userName:String,}
-//   const user = await prisma.user.delete({
-//     where: { id: 1 }
-//   })
-//   console.log(user)
-// }
-
-// main()
